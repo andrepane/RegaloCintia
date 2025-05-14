@@ -152,6 +152,15 @@ body {
   left: 0;
   z-index: 2;
   touch-action: none;
+  transition: opacity 0.6s ease;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#scratchCanvas.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
 }
 
 .scratch-reveal {
@@ -229,7 +238,3 @@ h1::after {
   color: #111;
 }
 
-.inspo-btn a:active {
-  background: #bfa76f;
-  color: #111;
-}
