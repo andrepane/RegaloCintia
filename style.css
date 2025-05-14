@@ -1,0 +1,229 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden; /* elimina scroll horizontal global */
+  margin: 0;
+  padding: 0;
+  touch-action: manipulation;
+  background-color: #222;
+  font-family: Poppins;
+}
+
+.header {
+  min-height: 100dvh;
+  background-color: #222;
+}
+
+.header--container {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  padding: 2rem;
+  color: #ccc;
+  font-size: 30px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  filter: drop-shadow(0 0 3px #fff9) drop-shadow(0 0 10px #fff9);
+  text-align: center;
+}
+
+#cursor {
+  display: inline-block;
+  animation: blink 0.75s step-end infinite;
+  color: #eee;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.vale--container {
+  min-height: 100dvh;
+  padding: 2rem;
+  background-color: #222;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* evita desbordamientos internos */
+}
+
+.pulse {
+  color: #ff9999;
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+  5% {
+    transform: scale(1.6);
+    opacity: 1;
+  } /* primer golpe */
+  10% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+  15% {
+    transform: scale(1.6);
+    opacity: 1;
+  } /* segundo golpe */
+  20% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+  55% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+  60% {
+    transform: scale(1.6);
+    opacity: 1;
+  } /* tercer golpe */
+  65% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 1;
+  } /* cuarto golpe */
+  85% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  } /* pausa antes de reiniciar */
+}
+.vale--text {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  max-width: 40ch;
+  white-space: wrap;
+  text-align: center;
+}
+
+.scratch-card {
+  position: relative;
+  width: 90dvw;
+  height: 70dvh;
+  max-width: 300px;
+  aspect-ratio: 2 / 1;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #1a1a1a;
+  box-shadow: 0 0 15px #0008;
+  padding: 1rem;
+  gap: 0.5rem;
+  border: 2px dashed #bfa76f;
+  background: linear-gradient(135deg, #1a1a1a, #222);
+  box-shadow: inset 0 0 15px #0006, 0 0 15px #0008;
+  background-image: radial-gradient(#333 1px, transparent 1px);
+  background-size: 10px 10px;
+  background-color: #1a1a1a;
+}
+
+#scratchCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  touch-action: none;
+}
+
+.scratch-reveal {
+  z-index: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  color: #eee;
+  font-family: "Poppins", sans-serif;
+}
+
+.span1 {
+  scale: 2;
+  color: #ff9999;
+  filter: drop-shadow(0 0 3px #fff9) drop-shadow(0 0 10px #fff9);
+}
+
+h1 {
+  position: relative;
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.2rem;
+  color: #e0e0e0;
+  text-transform: uppercase;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #444;
+  letter-spacing: 0.1rem;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #bfa76f;
+  bottom: 0;
+  left: 0;
+}
+
+.scratch-reveal p {
+  font-size: 1rem;
+  font-family: Poppins;
+}
+
+.inspo-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.inspo-btn a {
+  margin-top: 1rem;
+  background: transparent;
+  color: #bfa76f;
+  border: 1px solid #bfa76f;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+.inspo-btn a:hover {
+  background: #bfa76f;
+  color: #111;
+}
+
+.inspo-btn a:active {
+  background: #bfa76f;
+  color: #111;
+}

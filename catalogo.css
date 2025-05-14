@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden; /* elimina scroll horizontal global */
+  margin: 0;
+  padding: 0;
+  touch-action: manipulation;
+  background-color: #222;
+  font-family: Poppins;
+}
+
+.catalogo {
+  height: 100dvh; /* o 100vh si no usas iOS */
+  display: flex;
+  flex-direction: column;
+  background-color: #222;
+  color: #eee;
+  text-align: center;
+  padding: 0; /* eliminamos padding que empuja el contenido */
+  overflow: hidden; /* bloquea scroll accidental */
+}
+
+.catalogo h2 {
+  font-size: 2rem;
+  color: #bfa76f;
+  font-family: "Poppins", sans-serif;
+}
+
+.galeria {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 50%;
+  padding: 1rem;
+}
+
+.galeria-item {
+  position: relative;
+  left: 1rem;
+  top: 1.5rem;
+  flex: 0 0 90%;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0.7;
+  transform: scale(0.9);
+}
+
+.galeria-item img.activa {
+  transform: scale(1.1);
+  opacity: 1;
+  box-shadow: 0 0 20px #000a;
+  z-index: 2;
+}
+
+/* ❤️ Botón de me gusta */
+.like-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 5;
+  color: #eee;
+  transition: transform 0.2s ease;
+}
+
+.like-btn::before {
+  content: "🤍";
+  display: block;
+  font-size: 1.8rem;
+}
+
+.like-btn.liked::before {
+  content: "❤️";
+  animation: heartbeat 0.4s ease;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.4);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regalo</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header--container">
+        <div id="typewriter" class="text">
+          <span id="typed-text"></span><span id="cursor">|</span>
+        </div>
+      </div>
+    </header>
+    <main class="main">
+      <section class="vale--container fade-in">
+        <div class="pulse material-symbols-outlined">favorite</div>
+
+        <p class="vale--text">
+          Quería regalarte algo que dure para siempre, exactamente como
+          nosotors. Este es un regalo que aún no existe porque me encantaría
+          primero crearlo contigo, y después dejarlo imborrable en nuestra piel.
+          Aún así me he tomado la libertad de dejarte algunas ideas interesantes
+          que podamos usar como inspiración.
+        </p>
+      </section>
+
+      <section class="vale--container">
+        <div class="scratch-card">
+          <canvas id="scratchCanvas"></canvas>
+
+          <!-- Contenido revelado tras rascar -->
+          <div class="scratch-reveal">
+            <span class="span1 material-symbols-outlined">card_giftcard</span>
+            <h1>Vale Por Un Tatuaje En Pareja</h1>
+            <p>Fecha: ____________ (lo antes posible)</p>
+            <p>Precio: ____________ (ilimitado)</p>
+            <button class="inspo-btn">
+              <a href="catalogo.html">Descubre</a>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
