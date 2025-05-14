@@ -74,17 +74,14 @@ window.addEventListener("load", () => {
     checkScratchProgress();
   }
 
+  let drawCount = 0;
+
   function checkScratchProgress() {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    let cleared = 0;
-    for (let i = 3; i < imageData.data.length; i += 4) {
-      if (imageData.data[i] === 0) cleared++;
-    }
+    drawCount++;
+    const limiteRascado = 1100; // número de círculos estimado para completar
 
-    const totalPixels = canvas.width * canvas.height;
-    const percent = cleared / totalPixels;
-
-    if (percent > 0.95) {
+    if (drawCount >= limiteRascado) {
+      canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
     }
   }
@@ -107,3 +104,4 @@ window.addEventListener("load", () => {
     { passive: false }
   );
 });
+
