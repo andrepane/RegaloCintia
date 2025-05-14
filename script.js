@@ -1,5 +1,4 @@
 const text = `...lo material nunca es lo más bonito...`;
-
 const typedText = document.getElementById("typed-text");
 const cursor = document.getElementById("cursor");
 
@@ -18,39 +17,47 @@ window.addEventListener("load", () => {
 
   const canvas = document.getElementById("scratchCanvas");
   const ctx = canvas.getContext("2d");
-
   const container = canvas.parentElement;
 
-  // Este bloque asegura que se pinte cuando el contenedor ya tenga altura real
-  function esperarAlturaYdibujar() {
+  function dibujarCanvas() {
+    const width = container.offsetWidth;
     const height = container.offsetHeight;
 
-    if (height < 100) {
-      requestAnimationFrame(esperarAlturaYdibujar);
-      return;
-    }
-
-    canvas.width = container.offsetWidth;
-    canvas.height = container.offsetHeight;
+    canvas.width = width;
+    canvas.height = height;
 
     // Pintar capa gris
     ctx.globalCompositeOperation = "source-over";
     ctx.fillStyle = "#aaa";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, width, height);
 
     // Texto "¡Rasca aquí!"
     ctx.fillStyle = "#fff";
     ctx.font = "30px 'Poppins', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText("¡Rasca aquí!", canvas.width / 2, canvas.height / 2);
+    ctx.fillText("¡Rasca aquí!", width / 2, height / 2);
 
-    // Activar modo rascar
     ctx.globalCompositeOperation = "destination-out";
   }
 
-  requestAnimationFrame(esperarAlturaYdibujar); // ← aquí el cambio clave
+  // ✅ Asegura que el canvas se pinta solo cuando el contenedor tiene altura válida
+  function esperarAlturaYdibujar() {
+    if (container.offsetHeight < 100) {
+      requestAnimationFrame(esperarAlturaYdibujar);
+      return;
+    }
+    dibujarCanvas();
+  }
 
+  esperarAlturaYdibujar(); // Inicial
+
+  // ✅ Redibuja el canvas si cambia el viewport (Safari oculta barra, teclado, etc.)
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", dibujarCanvas);
+  }
+
+  // 🎨 Interacción del usuario
   function draw(e) {
     const rect = canvas.getBoundingClientRect();
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
@@ -63,7 +70,6 @@ window.addEventListener("load", () => {
     checkScratchProgress();
   }
 
-  // Verifica si ya se ha rascado suficiente para desactivar el canvas
   function checkScratchProgress() {
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let cleared = 0;
@@ -75,10 +81,11 @@ window.addEventListener("load", () => {
     const percent = cleared / totalPixels;
 
     if (percent > 0.95) {
-      canvas.style.pointerEvents = "none"; // ahora ya se puede pulsar el botón
+      canvas.style.pointerEvents = "none";
     }
   }
 
+  // 👆 Eventos de interacción
   canvas.addEventListener("mousemove", (e) => {
     if (e.buttons === 1) draw(e);
   });
@@ -86,6 +93,7 @@ window.addEventListener("load", () => {
   canvas.addEventListener("touchstart", (e) => e.preventDefault(), {
     passive: false,
   });
+
   canvas.addEventListener(
     "touchmove",
     (e) => {
@@ -95,4 +103,3 @@ window.addEventListener("load", () => {
     { passive: false }
   );
 });
-
