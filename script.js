@@ -19,25 +19,57 @@ window.addEventListener("load", () => {
   const canvas = document.getElementById("scratchCanvas");
   const ctx = canvas.getContext("2d");
 
-  const container = canvas.parentElement;
-  const rect = container.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
+  function ajustarCanvas() {
+    const container = canvas.parentElement;
+    canvas.width = container.offsetWidth;
+    canvas.height = container.offsetHeight;
 
-  // Pintar fondo gris
-  ctx.fillStyle = "#aaa";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Pintar capa gris
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#aaa";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Pintar texto decorativo
-  ctx.globalCompositeOperation = "source-over";
-  ctx.fillStyle = "#fff";
-  ctx.font = "30px 'Poppins', sans-serif";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText("¡Rasca aquí!", canvas.width / 2, canvas.height / 2);
+    // Pintar texto "¡Rasca aquí!"
+    ctx.fillStyle = "#fff";
+    ctx.font = "30px 'Poppins', sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("¡Rasca aquí!", canvas.width / 2, canvas.height / 2);
 
-  // Activar modo rascar
-  ctx.globalCompositeOperation = "destination-out";
+    // Activar modo rascar
+    ctx.globalCompositeOperation = "destination-out";
+  }
+  function dibujarCanvas() {
+    const container = canvas.parentElement;
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
+
+    // Espera hasta que el contenedor tenga altura suficiente
+    if (height < 100) {
+      setTimeout(dibujarCanvas, 50);
+      return;
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+
+    // Pintar capa gris
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#aaa";
+    ctx.fillRect(0, 0, width, height);
+
+    // Texto "¡Rasca aquí!"
+    ctx.fillStyle = "#fff";
+    ctx.font = "30px 'Poppins', sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("¡Rasca aquí!", width / 2, height / 2);
+
+    // Activar modo rascar
+    ctx.globalCompositeOperation = "destination-out";
+  }
+
+  setTimeout(dibujarCanvas, 100); // lanza después de estabilizar carga
 
   function draw(e) {
     const rect = canvas.getBoundingClientRect();
