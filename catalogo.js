@@ -1,6 +1,7 @@
 document.querySelectorAll(".like-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     btn.classList.toggle("liked");
+    btn.textContent = btn.classList.contains("liked") ? "❤️" : "🤍";
   });
 });
 
