@@ -19,7 +19,11 @@ window.addEventListener("load", () => {
   const ctx = canvas.getContext("2d");
   const container = canvas.parentElement;
 
+  let yaRascado = false; // 👈 evita repintado si el usuario ya ha rascado
+
   function dibujarCanvas() {
+    if (yaRascado) return; // 👈 NO repintar si ya ha empezado a rascar
+
     const width = container.offsetWidth;
     const height = container.offsetHeight;
 
@@ -41,7 +45,6 @@ window.addEventListener("load", () => {
     ctx.globalCompositeOperation = "destination-out";
   }
 
-  // ✅ Asegura que el canvas se pinta solo cuando el contenedor tiene altura válida
   function esperarAlturaYdibujar() {
     if (container.offsetHeight < 100) {
       requestAnimationFrame(esperarAlturaYdibujar);
@@ -50,15 +53,16 @@ window.addEventListener("load", () => {
     dibujarCanvas();
   }
 
-  esperarAlturaYdibujar(); // Inicial
+  esperarAlturaYdibujar(); // 👈 Pintado inicial
 
-  // ✅ Redibuja el canvas si cambia el viewport (Safari oculta barra, teclado, etc.)
+  // 👇 Redibuja si el viewport cambia (ej. barra Safari)
   if (window.visualViewport) {
     window.visualViewport.addEventListener("resize", dibujarCanvas);
   }
 
-  // 🎨 Interacción del usuario
   function draw(e) {
+    yaRascado = true; // 👈 Marcamos que el usuario ha empezado a rascar
+
     const rect = canvas.getBoundingClientRect();
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
     const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
@@ -85,7 +89,7 @@ window.addEventListener("load", () => {
     }
   }
 
-  // 👆 Eventos de interacción
+  // Eventos
   canvas.addEventListener("mousemove", (e) => {
     if (e.buttons === 1) draw(e);
   });
