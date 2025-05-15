@@ -78,7 +78,7 @@ window.addEventListener("load", () => {
 
   function checkScratchProgress() {
     drawCount++;
-    const limiteRascado = 900; // número de círculos estimado para completar
+    const limiteRascado = 700; // número de círculos estimado para completar
 
     if (drawCount >= limiteRascado) {
       canvas.classList.add("fade-out");
