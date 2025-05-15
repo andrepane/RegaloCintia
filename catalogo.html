@@ -9,41 +9,69 @@
   <body>
     <h1>Ideas de Tatuajes</h1>
 
-    <div class="card">
-      <img
-        src="https://i.pinimg.com/736x/52/3c/19/523c19428d6727f8baac305ce9ae80ff.jpg"
-        alt="Aliens"
-      />
-      <div class="card-content">
-        <h2>Aliens en pareja</h2>
-        <button class="like-btn">🤍</button>
-      </div>
+    <!-- Menú de Categorías -->
+    <div id="menu-categorias">
+      <h2>Elige una categoría:</h2>
+      <button class="categoria-btn" data-categoria="aliens">Hilo Rojo</button>
+      <button class="categoria-btn" data-categoria="huellas">Romántico</button>
+      <button class="categoria-btn" data-categoria="solyluna">Divertido</button>
     </div>
 
-    <div class="card">
-      <img
-        src="https://i.pinimg.com/736x/dc/8c/46/dc8c46bb67ea2092981838adf38d98a9.jpg"
-        alt="Corazón con huellas"
-      />
-      <div class="card-content">
-        <h2>Corazón con huellas</h2>
-        <button class="like-btn">🤍</button>
-      </div>
-    </div>
+    <!-- Botones de control -->
+    <button id="toggle-favoritos" style="display: none">
+      Ver solo favoritos
+    </button>
+    <button id="volver-menu" style="display: none">Volver al menú</button>
 
-    <div class="card">
-      <img
-        src="https://i.pinimg.com/736x/57/5b/98/575b98ca904a165d4521df0a9bb44ba0.jpg"
-        alt="Manos sol y luna"
-      />
-      <div class="card-content">
-        <h2>Sol y luna</h2>
-        <button class="like-btn">🤍</button>
+    <!-- Catálogo -->
+    <div id="catalogo" style="display: none">
+      <div class="card" data-id="tatuaje-1" data-categoria="aliens">
+        <img
+          src="https://i.pinimg.com/736x/52/3c/19/523c19428d6727f8baac305ce9ae80ff.jpg"
+          alt="Aliens"
+        />
+        <div class="card-content">
+          <h2>Aliens en pareja</h2>
+          <button class="like-btn">🤍</button>
+        </div>
+      </div>
+      <div class="card" data-id="tatuaje-1" data-categoria="aliens">
+        <img
+          src="https://i.pinimg.com/736x/5e/9c/e6/5e9ce656ac25cbeab1718724da29cd01.jpg"
+          alt="Aliens"
+        />
+        <div class="card-content">
+          <h2>Aliens en pareja</h2>
+          <button class="like-btn">🤍</button>
+        </div>
+      </div>
+
+      <div class="card" data-id="tatuaje-2" data-categoria="huellas">
+        <img
+          src="https://i.pinimg.com/736x/dc/8c/46/dc8c46bb67ea2092981838adf38d98a9.jpg"
+          alt="Corazón con huellas"
+        />
+        <div class="card-content">
+          <h2>Corazón con huellas</h2>
+          <button class="like-btn">🤍</button>
+        </div>
+      </div>
+
+      <div class="card" data-id="tatuaje-3" data-categoria="solyluna">
+        <img
+          src="https://i.pinimg.com/736x/57/5b/98/575b98ca904a165d4521df0a9bb44ba0.jpg"
+          alt="Manos sol y luna"
+        />
+        <div class="card-content">
+          <h2>Sol y luna</h2>
+          <button class="like-btn">🤍</button>
+        </div>
       </div>
     </div>
 
     <script src="catalogo.js"></script>
   </body>
 </html>
+
 
 
