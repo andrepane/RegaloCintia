@@ -30,7 +30,7 @@ body {
   font-size: 30px;
   font-family: monospace;
   white-space: pre-wrap;
-  filter: drop-shadow(0 0 3px #fff9) drop-shadow(0 0 10px #fff9);
+  filter: drop-shadow(0 0 3px white) drop-shadow(0 0 10px white);
   text-align: center;
 }
 
