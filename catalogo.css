@@ -157,6 +157,8 @@ h1 {
   align-items: center;
   flex-direction: column; /* 🔥 Aquí la clave */
   animation: fadeIn 0.3s ease;
+  overflow-y: auto;
+  padding-bottom: 4rem;
 }
 
 .modal-contenido {
