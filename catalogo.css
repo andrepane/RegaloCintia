@@ -169,9 +169,10 @@ h1 {
 }
 
 .cerrar {
-  position: absolute;
-  top: 20px;
-  right: 40px;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 200;
   font-size: 3rem;
   color: #fff;
   font-weight: bold;
