@@ -13,8 +13,27 @@ body {
 }
 
 .header {
-  min-height: 100dvh;
-  background-color: #222;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #111, #222);
+  text-align: center;
+  position: relative;
+  padding: 0 1rem;
+}
+
+#typewriter {
+  animation: fadeInUp 1s ease 1s forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .header--container {
@@ -25,19 +44,26 @@ body {
 }
 
 .text {
-  padding: 2rem;
-  color: #ccc;
-  font-size: 30px;
-  font-family: monospace;
-  white-space: pre-wrap;
-  filter: drop-shadow(0 0 3px white) drop-shadow(0 0 10px white);
-  text-align: center;
+  font-size: 1.8rem;
+  letter-spacing: 0.1rem;
+  background: linear-gradient(90deg, #eee, #bfa76f, #eee);
+  background-size: 200%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
 }
 
 #cursor {
   display: inline-block;
   animation: blink 0.75s step-end infinite;
-  color: #eee;
+  color: transparent; /* Evitamos conflictos */
+  width: 3px;
+  background: #fff;
+  height: 1.2em;
+  margin-left: 2px;
+  box-shadow: 0 0 8px #fff, 0 0 20px #fff5;
 }
 
 @keyframes blink {
@@ -48,8 +74,6 @@ body {
 
 .vale--container {
   min-height: 100dvh;
-  padding: 2rem;
-  background-color: #222;
   color: #eee;
   display: flex;
   flex-direction: column;
@@ -59,6 +83,13 @@ body {
   position: relative;
   width: 100%;
   overflow: hidden; /* evita desbordamientos internos */
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  border-radius: 1.5rem;
+  background: #1e1e1e;
+  box-shadow: 0 0 15px #0006;
+  margin-bottom: 3rem;
 }
 
 .pulse {
