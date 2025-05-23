@@ -214,3 +214,33 @@ function actualizarContadorFavoritos() {
   }
 }
 
+function hacerDraggable(el) {
+  let offsetX = 0, offsetY = 0, startX = 0, startY = 0;
+
+  el.addEventListener("mousedown", dragStart);
+  document.addEventListener("mouseup", dragEnd);
+  document.addEventListener("mousemove", drag);
+
+  function dragStart(e) {
+    e.preventDefault();
+    startX = e.clientX;
+    startY = e.clientY;
+    offsetX = el.offsetLeft;
+    offsetY = el.offsetTop;
+    el.classList.add("arrastrando");
+  }
+
+  function drag(e) {
+    if (!el.classList.contains("arrastrando")) return;
+    el.style.left = `${offsetX + (e.clientX - startX)}px`;
+    el.style.top = `${offsetY + (e.clientY - startY)}px`;
+    el.style.transform = `translate(0, 0)`; // cancelamos el centrado automático
+  }
+
+  function dragEnd() {
+    el.classList.remove("arrastrando");
+  }
+}
+
+hacerDraggable(document.getElementById("tattoo-preview"));
+
