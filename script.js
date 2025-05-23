@@ -109,3 +109,17 @@ grad.addColorStop(1, "#777777");
     draw(e);
   }, { passive: false });
 });
+
+const textElement = document.querySelector(".text");
+let position = 0;
+let direction = 1;
+
+function animateGradient() {
+  position += direction * 1.0;
+  if (position > 100 || position < 0) direction *= -1;
+  textElement.style.backgroundPosition = `${position}% 50%`;
+  requestAnimationFrame(animateGradient);
+}
+
+requestAnimationFrame(animateGradient);
+
