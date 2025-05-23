@@ -233,6 +233,8 @@ h1 {
   cursor: grab;
   resize: both !important;
   overflow: hidden;
+  touch-action: none;
+  user-select: none;
 }
 
 
