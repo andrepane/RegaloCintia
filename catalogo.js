@@ -214,33 +214,29 @@ function actualizarContadorFavoritos() {
   }
 }
 
-function hacerDraggable(el) {
-  let offsetX = 0, offsetY = 0, startX = 0, startY = 0;
+function hacerDraggable(element) {
+  let isDragging = false;
+  let offsetX, offsetY;
 
-  el.addEventListener("mousedown", dragStart);
-  document.addEventListener("mouseup", dragEnd);
-  document.addEventListener("mousemove", drag);
+  element.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - element.offsetLeft;
+    offsetY = e.clientY - element.offsetTop;
+    element.classList.add("arrastrando");
+  });
 
-  function dragStart(e) {
-    e.preventDefault();
-    startX = e.clientX;
-    startY = e.clientY;
-    offsetX = el.offsetLeft;
-    offsetY = el.offsetTop;
-    el.classList.add("arrastrando");
-  }
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    element.classList.remove("arrastrando");
+  });
 
-  function drag(e) {
-    if (!el.classList.contains("arrastrando")) return;
-    el.style.left = `${offsetX + (e.clientX - startX)}px`;
-    el.style.top = `${offsetY + (e.clientY - startY)}px`;
-    el.style.transform = `translate(0, 0)`; // cancelamos el centrado automático
-  }
-
-  function dragEnd() {
-    el.classList.remove("arrastrando");
-  }
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      element.style.left = `${e.clientX - offsetX}px`;
+      element.style.top = `${e.clientY - offsetY}px`;
+      element.style.transform = "none"; // cancelamos el centrado
+    }
+  });
 }
 
 hacerDraggable(document.getElementById("tattoo-preview"));
-
