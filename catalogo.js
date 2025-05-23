@@ -214,29 +214,53 @@ function actualizarContadorFavoritos() {
   }
 }
 
-function hacerDraggable(element) {
+function hacerDraggable(el) {
   let isDragging = false;
-  let offsetX, offsetY;
+  let offsetX = 0;
+  let offsetY = 0;
 
-  element.addEventListener("mousedown", (e) => {
+  // EVENTOS PARA RATÓN
+  el.addEventListener("mousedown", (e) => {
     isDragging = true;
-    offsetX = e.clientX - element.offsetLeft;
-    offsetY = e.clientY - element.offsetTop;
-    element.classList.add("arrastrando");
+    offsetX = e.clientX - el.offsetLeft;
+    offsetY = e.clientY - el.offsetTop;
+    el.classList.add("arrastrando");
   });
 
   document.addEventListener("mouseup", () => {
     isDragging = false;
-    element.classList.remove("arrastrando");
+    el.classList.remove("arrastrando");
   });
 
   document.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      element.style.left = `${e.clientX - offsetX}px`;
-      element.style.top = `${e.clientY - offsetY}px`;
-      element.style.transform = "none"; // cancelamos el centrado
-    }
+    if (!isDragging) return;
+    moverElemento(e.clientX, e.clientY);
   });
+
+  // EVENTOS PARA MÓVIL (TOUCH)
+  el.addEventListener("touchstart", (e) => {
+    isDragging = true;
+    const touch = e.touches[0];
+    offsetX = touch.clientX - el.offsetLeft;
+    offsetY = touch.clientY - el.offsetTop;
+  });
+
+  document.addEventListener("touchend", () => {
+    isDragging = false;
+  });
+
+  document.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    moverElemento(touch.clientX, touch.clientY);
+  });
+
+  function moverElemento(x, y) {
+    el.style.left = `${x - offsetX}px`;
+    el.style.top = `${y - offsetY}px`;
+    el.style.transform = "none"; // cancela el centrado
+  }
 }
 
 hacerDraggable(document.getElementById("tattoo-preview"));
+
