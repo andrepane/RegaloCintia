@@ -91,7 +91,7 @@ grad.addColorStop(1, "#777777");
 
   function checkScratchProgress() {
     drawCount++;
-    const limiteRascado = 800;
+    const limiteRascado = 600;
     if (drawCount >= limiteRascado) {
       canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
