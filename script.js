@@ -19,10 +19,10 @@ window.addEventListener("load", () => {
   const ctx = canvas.getContext("2d");
   const container = canvas.parentElement;
 
-  let yaRascado = false; // 👈 evita repintado si el usuario ya ha rascado
+  let yaRascado = false;
 
   function dibujarCanvas() {
-    if (yaRascado) return; // 👈 NO repintar si ya ha empezado a rascar
+    if (yaRascado) return;
 
     const width = container.offsetWidth;
     const height = container.offsetHeight;
@@ -30,17 +30,24 @@ window.addEventListener("load", () => {
     canvas.width = width;
     canvas.height = height;
 
-    // Pintar capa gris
-    ctx.globalCompositeOperation = "source-over";
-    ctx.fillStyle = "#aaa";
+    ctx.clearRect(0, 0, width, height);
+
+    // Fondo gris degradado
+    const grad = ctx.createLinearGradient(0, 0, width, height);
+    grad.addColorStop(0, "rgba(180,180,180,0.85)");
+    grad.addColorStop(1, "rgba(120,120,120,0.85)");
+    ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
 
-    // Texto "¡Rasca aquí!"
+    // Texto central
     ctx.fillStyle = "#fff";
-    ctx.font = "30px 'Poppins', sans-serif";
+    ctx.font = "bold 36px 'Poppins', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
+    ctx.shadowColor = "rgba(0,0,0,0.4)";
+    ctx.shadowBlur = 6;
     ctx.fillText("¡Rasca aquí!", width / 2, height / 2);
+    ctx.shadowBlur = 0;
 
     ctx.globalCompositeOperation = "destination-out";
   }
@@ -53,55 +60,51 @@ window.addEventListener("load", () => {
     dibujarCanvas();
   }
 
-  esperarAlturaYdibujar(); // 👈 Pintado inicial
+  esperarAlturaYdibujar();
 
-  // 👇 Redibuja si el viewport cambia (ej. barra Safari)
   if (window.visualViewport) {
     window.visualViewport.addEventListener("resize", dibujarCanvas);
   }
 
+  let drawCount = 0;
+
   function draw(e) {
-    yaRascado = true; // 👈 Marcamos que el usuario ha empezado a rascar
+    if (!yaRascado && "vibrate" in navigator) {
+      navigator.vibrate(10);
+    }
+
+    yaRascado = true;
 
     const rect = canvas.getBoundingClientRect();
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
     const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
 
+    const radio = Math.max(canvas.width, canvas.height) * 0.02;
+
     ctx.beginPath();
-    ctx.arc(x, y, 15, 0, 2 * Math.PI);
+    ctx.arc(x, y, radio, 0, 2 * Math.PI);
     ctx.fill();
 
     checkScratchProgress();
   }
 
-  let drawCount = 0;
-
   function checkScratchProgress() {
     drawCount++;
-    const limiteRascado = 800; // número de círculos estimado para completar
-
+    const limiteRascado = 800;
     if (drawCount >= limiteRascado) {
       canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
     }
   }
 
-  // Eventos
   canvas.addEventListener("mousemove", (e) => {
     if (e.buttons === 1) draw(e);
   });
 
-  canvas.addEventListener("touchstart", (e) => e.preventDefault(), {
-    passive: false,
-  });
+  canvas.addEventListener("touchstart", (e) => e.preventDefault(), { passive: false });
 
-  canvas.addEventListener(
-    "touchmove",
-    (e) => {
-      e.preventDefault();
-      draw(e);
-    },
-    { passive: false }
-  );
+  canvas.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    draw(e);
+  }, { passive: false });
 });
-
