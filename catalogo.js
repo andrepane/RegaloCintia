@@ -1,4 +1,4 @@
-// ==== FAVORITOS LOCALSTORAGE ====
+// ==== FAVORITOS LOCALSTORAGE ==== 
 function getFavoritos() {
   return JSON.parse(localStorage.getItem("favoritosTatuajes")) || [];
 }
