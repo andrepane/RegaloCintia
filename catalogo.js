@@ -186,7 +186,10 @@ verPreviewBtn.addEventListener("click", () => {
   if (modalImg.src) {
     tattooPreview.src = modalImg.src;
     previewContainer.style.display = "block";
-    tattooPreview.style.pointerEvents = "auto"; // ahora sí puedes arrastrar
+    tattooPreview.style.pointerEvents = "auto";
+
+    // ⚠️ Solo se activa cuando se abre el preview
+    habilitarMultitouch(tattooPreview);
   }
 });
 
@@ -215,67 +218,67 @@ function actualizarContadorFavoritos() {
   }
 }
 
-function hacerDraggable(el) {
-  let isDragging = false;
+function habilitarMultitouch(tattoo) {
+  let initialDistance = null;
+  let initialAngle = null;
+  let initialScale = 1;
+  let initialRotation = 0;
+
+  let currentScale = 1;
+  let currentRotation = 0;
+  let currentX = 0;
+  let currentY = 0;
+
   let offsetX = 0;
   let offsetY = 0;
+  let isDragging = false;
 
-function moverElemento(x, y) {
-  el.style.left = `${x - offsetX}px`;
-  el.style.top = `${y - offsetY}px`;
-}
-
-
-  // EVENTOS PARA RATÓN
-  el.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    offsetX = e.clientX - el.offsetLeft;
-    offsetY = e.clientY - el.offsetTop;
-    el.classList.add("arrastrando");
+  // Drag con un dedo
+  tattoo.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 1) {
+      const touch = e.touches[0];
+      offsetX = touch.clientX - tattoo.offsetLeft;
+      offsetY = touch.clientY - tattoo.offsetTop;
+      isDragging = true;
+    } else if (e.touches.length === 2) {
+      isDragging = false;
+      const dx = e.touches[1].clientX - e.touches[0].clientX;
+      const dy = e.touches[1].clientY - e.touches[0].clientY;
+      initialDistance = Math.hypot(dx, dy);
+      initialAngle = Math.atan2(dy, dx) * (180 / Math.PI);
+      initialScale = currentScale;
+      initialRotation = currentRotation;
+    }
   });
 
-  document.addEventListener("mouseup", () => {
-    isDragging = false;
-    el.classList.remove("arrastrando");
-  });
+  document.addEventListener("touchmove", (e) => {
+    if (e.touches.length === 1 && isDragging) {
+      const touch = e.touches[0];
+      currentX = touch.clientX - offsetX;
+      currentY = touch.clientY - offsetY;
+      aplicarTransformacion();
+    } else if (e.touches.length === 2) {
+      const dx = e.touches[1].clientX - e.touches[0].clientX;
+      const dy = e.touches[1].clientY - e.touches[0].clientY;
+      const newDistance = Math.hypot(dx, dy);
+      const newAngle = Math.atan2(dy, dx) * (180 / Math.PI);
 
-  document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    moverElemento(e.clientX, e.clientY);
-  });
-
-  // EVENTOS PARA MÓVIL (TOUCH)
-  el.addEventListener("touchstart", (e) => {
-    isDragging = true;
-    const touch = e.touches[0];
-    offsetX = touch.clientX - el.offsetLeft;
-    offsetY = touch.clientY - el.offsetTop;
+      currentScale = initialScale * (newDistance / initialDistance);
+      currentRotation = initialRotation + (newAngle - initialAngle);
+      aplicarTransformacion();
+    }
   });
 
   document.addEventListener("touchend", () => {
     isDragging = false;
   });
 
-  document.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    const touch = e.touches[0];
-    moverElemento(touch.clientX, touch.clientY);
-  });
+  function aplicarTransformacion() {
+    tattoo.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentScale}) rotate(${currentRotation}deg)`;
+  }
 }
 
 
-hacerDraggable(document.getElementById("tattoo-preview"));
-
-const sliderTamano = document.getElementById("slider-tamano");
-const sliderRotacion = document.getElementById("slider-rotacion");
-
-sliderTamano.addEventListener("input", () => {
-  actualizarTransformaciones();
-});
-
-sliderRotacion.addEventListener("input", () => {
-  actualizarTransformaciones();
-});
 
 let escalaActual = 40; // en porcentaje
 let rotacionActual = 0;
