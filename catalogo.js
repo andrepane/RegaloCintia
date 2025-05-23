@@ -186,6 +186,7 @@ verPreviewBtn.addEventListener("click", () => {
   if (modalImg.src) {
     tattooPreview.src = modalImg.src;
     previewContainer.style.display = "block";
+    tattooPreview.style.pointerEvents = "auto"; // ahora sí puedes arrastrar
   }
 });
 
@@ -218,6 +219,12 @@ function hacerDraggable(el) {
   let isDragging = false;
   let offsetX = 0;
   let offsetY = 0;
+
+function moverElemento(x, y) {
+  el.style.left = `${x - offsetX}px`;
+  el.style.top = `${y - offsetY}px`;
+}
+
 
   // EVENTOS PARA RATÓN
   el.addEventListener("mousedown", (e) => {
@@ -254,13 +261,8 @@ function hacerDraggable(el) {
     const touch = e.touches[0];
     moverElemento(touch.clientX, touch.clientY);
   });
-
-  function moverElemento(x, y) {
-    el.style.left = `${x - offsetX}px`;
-    el.style.top = `${y - offsetY}px`;
-    el.style.transform = "none"; // cancela el centrado
-  }
 }
+
 
 hacerDraggable(document.getElementById("tattoo-preview"));
 
@@ -275,10 +277,16 @@ sliderRotacion.addEventListener("input", () => {
   actualizarTransformaciones();
 });
 
+let escalaActual = 40; // en porcentaje
+let rotacionActual = 0;
+
+
 function actualizarTransformaciones() {
-  const tamano = sliderTamano.value;
-  const rotacion = sliderRotacion.value;
-  tattooPreview.style.width = `${tamano}%`;
-  tattooPreview.style.transform = `rotate(${rotacion}deg)`; // sin translate
+  escalaActual = sliderTamano.value;
+  rotacionActual = sliderRotacion.value;
+
+  tattooPreview.style.width = `${escalaActual}%`;
+  tattooPreview.style.transform = `rotate(${rotacionActual}deg) scale(${escalaActual / 40})`;
 }
+
 
