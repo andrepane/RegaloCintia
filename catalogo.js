@@ -100,13 +100,6 @@ function mostrarMensajeNoFavoritos(visible) {
   msg.style.display = visible ? "block" : "none";
 }
 
-function actualizarContadorFavoritos() {
-  const count = getFavoritos().length;
-  toggleBtn.textContent = soloFavoritosActivo
-    ? `Ver todos (${count})`
-    : `Ver favoritos (${count})`;
-}
-
 document.getElementById("toggle-favoritos").addEventListener("click", () => {
   soloFavoritosActivo = !soloFavoritosActivo;
   if (soloFavoritosActivo) {
@@ -168,4 +161,56 @@ window.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0 });
   }
 });
+
+// ==== MODAL PARA AMPLIAR IMAGEN ====
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modal-img");
+const cerrarModal = document.getElementById("cerrar-modal");
+
+const verPreviewBtn = document.getElementById("ver-preview");
+const tattooPreview = document.getElementById("tattoo-preview");
+const previewContainer = document.getElementById("preview-container");
+
+document.querySelectorAll(".card img").forEach((img) => {
+  img.addEventListener("click", () => {
+    modal.style.display = "flex";
+    modalImg.src = img.src;
+
+    // Reiniciar preview
+    previewContainer.style.display = "none";
+    tattooPreview.src = "";
+  });
+});
+
+verPreviewBtn.addEventListener("click", () => {
+  if (modalImg.src) {
+    tattooPreview.src = modalImg.src;
+    previewContainer.style.display = "block";
+  }
+});
+
+cerrarModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+function actualizarContadorFavoritos() {
+  const count = getFavoritos().length;
+
+  // ✅ Esta línea ya sin número en el botón
+  toggleBtn.textContent = soloFavoritosActivo ? "Ver todos" : "Ver favoritos";
+
+  // Contador en la esquina
+  const contador = document.getElementById("contador-favoritos");
+  if (contador) {
+    contador.textContent = `${count} ❤️`;
+    contador.classList.add("animado");
+    setTimeout(() => contador.classList.remove("animado"), 300);
+  }
+}
 
