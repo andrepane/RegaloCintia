@@ -32,7 +32,7 @@ window.addEventListener("load", () => {
 
     ctx.clearRect(0, 0, width, height);
 
-    // Fondo gris degradado
+    // Fondo gris degradado 
     const grad = ctx.createLinearGradient(0, 0, width, height);
 grad.addColorStop(0, "#bbbbbb");
 grad.addColorStop(1, "#777777");
