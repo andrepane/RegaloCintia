@@ -34,8 +34,9 @@ window.addEventListener("load", () => {
 
     // Fondo gris degradado
     const grad = ctx.createLinearGradient(0, 0, width, height);
-    grad.addColorStop(0, "rgba(180,180,180,0.85)");
-    grad.addColorStop(1, "rgba(120,120,120,0.85)");
+grad.addColorStop(0, "#bbbbbb");
+grad.addColorStop(1, "#777777");
+
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
 
