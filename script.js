@@ -80,7 +80,7 @@ grad.addColorStop(1, "#777777");
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
     const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
 
-    const radio = Math.max(canvas.width, canvas.height) * 0.09;
+    const radio = Math.max(canvas.width, canvas.height) * 0.05;
 
     ctx.beginPath();
     ctx.arc(x, y, radio, 0, 2 * Math.PI);
