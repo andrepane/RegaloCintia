@@ -264,3 +264,21 @@ function hacerDraggable(el) {
 
 hacerDraggable(document.getElementById("tattoo-preview"));
 
+const sliderTamano = document.getElementById("slider-tamano");
+const sliderRotacion = document.getElementById("slider-rotacion");
+
+sliderTamano.addEventListener("input", () => {
+  actualizarTransformaciones();
+});
+
+sliderRotacion.addEventListener("input", () => {
+  actualizarTransformaciones();
+});
+
+function actualizarTransformaciones() {
+  const tamano = sliderTamano.value;
+  const rotacion = sliderRotacion.value;
+  tattooPreview.style.width = `${tamano}%`;
+  tattooPreview.style.transform = `rotate(${rotacion}deg)`; // sin translate
+}
+
