@@ -8,6 +8,7 @@
   </head>
   <body>
     <h1>Ideas de Tatuajes</h1>
+    <div id="contador-favoritos" class="burbuja-favoritos">0 ❤️</div>
 
     <!-- Menú de Categorías -->
     <div id="menu-categorias">
@@ -63,8 +64,26 @@
         </div>
       </div>
     </div>
+    <div id="modal" class="modal">
+      <span id="cerrar-modal" class="cerrar">&times;</span>
+
+      <!-- Imagen del tatuaje en grande -->
+      <img id="modal-img" class="modal-contenido" />
+
+      <!-- Botón justo debajo de la imagen -->
+      <div id="boton-container">
+        <button id="ver-preview">Ver sobre la piel</button>
+      </div>
+
+      <!-- Vista previa del brazo -->
+      <div id="preview-container" style="display: none">
+        <img id="brazo-img" src="assets/brazo.png" alt="Brazo" />
+        <img id="tattoo-preview" src="" alt="Vista previa" />
+      </div>
+    </div>
 
     <script src="catalogo.js"></script>
   </body>
 </html>
+
 
