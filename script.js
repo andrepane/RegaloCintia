@@ -123,3 +123,98 @@ function animateGradient() {
 
 requestAnimationFrame(animateGradient);
 
+// ... Tu código de typewriter y scratchCanvas arriba ...
+
+function mostrarSliderDescubre() {
+  const swipeContainer = document.getElementById("swipe-container");
+  if (swipeContainer) {
+    swipeContainer.style.display = "block";
+    inicializarSliderSwipe();
+  }
+}
+
+// Única definición correcta de checkScratchProgress
+function checkScratchProgress() {
+  drawCount++;
+  const limiteRascado = 450;
+  if (drawCount >= limiteRascado) {
+    canvas.classList.add("fade-out");
+    canvas.style.pointerEvents = "none";
+    mostrarSliderDescubre();
+  }
+}
+
+// Slider "desliza para descubrir"
+function inicializarSliderSwipe() {
+  const swipeThumb = document.getElementById("swipe-thumb");
+  const swipeTrack = document.querySelector(".swipe-track");
+  if (!swipeThumb || !swipeTrack) return;
+  
+  let startX = null, currentX = 0, dragging = false;
+  const maxMove = swipeTrack.offsetWidth - swipeThumb.offsetWidth - 4;
+
+  function resetSlider() {
+    swipeThumb.style.transform = `translateX(0px)`;
+    swipeThumb.style.background = "var(--accent)";
+    dragging = false;
+    startX = null;
+    currentX = 0;
+  }
+
+  function completeSlider() {
+    swipeThumb.style.transform = `translateX(${maxMove}px)`;
+    swipeThumb.style.background = "#7ed957";
+    setTimeout(() => {
+      window.location.href = "catalogo.html";
+    }, 250);
+  }
+
+  swipeThumb.ontouchstart = (e) => {
+    dragging = true;
+    startX = e.touches[0].clientX;
+  };
+
+  swipeThumb.ontouchmove = (e) => {
+    if (!dragging) return;
+    let deltaX = e.touches[0].clientX - startX;
+    if (deltaX < 0) deltaX = 0;
+    if (deltaX > maxMove) deltaX = maxMove;
+    currentX = deltaX;
+    swipeThumb.style.transform = `translateX(${currentX}px)`;
+  };
+
+  swipeThumb.ontouchend = () => {
+    if (currentX > maxMove * 0.8) {
+      completeSlider();
+    } else {
+      resetSlider();
+    }
+  };
+
+  // Mouse support
+  swipeThumb.onmousedown = (e) => {
+    dragging = true;
+    startX = e.clientX;
+    document.body.style.userSelect = "none";
+  };
+
+  window.onmousemove = (e) => {
+    if (!dragging) return;
+    let deltaX = e.clientX - startX;
+    if (deltaX < 0) deltaX = 0;
+    if (deltaX > maxMove) deltaX = maxMove;
+    currentX = deltaX;
+    swipeThumb.style.transform = `translateX(${currentX}px)`;
+  };
+
+  window.onmouseup = () => {
+    if (!dragging) return;
+    if (currentX > maxMove * 0.8) {
+      completeSlider();
+    } else {
+      resetSlider();
+    }
+    document.body.style.userSelect = "";
+    dragging = false;
+  };
+}
