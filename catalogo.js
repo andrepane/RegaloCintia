@@ -48,37 +48,36 @@ function marcarFavoritos() {
   });
 }
 
-// == LIKE CON ANIMACIÓN Y TOAST ==
-function activarLikeBtns() {
-  document.querySelectorAll(".like-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-      const card = button.closest(".card");
-      const id = card.dataset.id;
-      let favoritos = getFavoritos();
+// == Delegación de eventos para like-btn (siempre funciona, incluso en cards nuevas o móviles) ==
+const catalogo = document.getElementById("catalogo");
+catalogo.addEventListener("click", (event) => {
+  const button = event.target.closest(".like-btn");
+  if (!button) return;
+  const card = button.closest(".card");
+  if (!card) return;
+  const id = card.dataset.id;
+  let favoritos = getFavoritos();
 
-      if (favoritos.includes(id)) {
-        favoritos = favoritos.filter((fav) => fav !== id);
-        showToast("Eliminado de favoritos");
-      } else {
-        favoritos.push(id);
-        // Microanimación
-        button.animate(
-          [
-            { transform: "scale(1)", filter: "brightness(1)" },
-            { transform: "scale(1.4)", filter: "brightness(1.5)" },
-            { transform: "scale(1)", filter: "brightness(1)" }
-          ],
-          { duration: 400, easing: "ease" }
-        );
-        showToast("¡Añadido a favoritos!");
-      }
-      saveFavoritos(favoritos);
-      marcarFavoritos();
-      if (soloFavoritosActivo) mostrarSoloFavoritos();
-      actualizarContadorFavoritos();
-    });
-  });
-}
+  if (favoritos.includes(id)) {
+    favoritos = favoritos.filter((fav) => fav !== id);
+    showToast("Eliminado de favoritos");
+  } else {
+    favoritos.push(id);
+    button.animate(
+      [
+        { transform: "scale(1)", filter: "brightness(1)" },
+        { transform: "scale(1.4)", filter: "brightness(1.5)" },
+        { transform: "scale(1)", filter: "brightness(1)" }
+      ],
+      { duration: 400, easing: "ease" }
+    );
+    showToast("¡Añadido a favoritos!");
+  }
+  saveFavoritos(favoritos);
+  marcarFavoritos();
+  if (soloFavoritosActivo) mostrarSoloFavoritos();
+  actualizarContadorFavoritos();
+});
 
 // == CARDS ENTRADA SUAVE / SCROLL POP-UP ==
 const cards = document.querySelectorAll(".card");
@@ -134,7 +133,6 @@ function mostrarMensajeNoFavoritos(visible) {
 // == ELEMENTOS DOM GLOBALES ==
 const toggleBtn = document.getElementById("toggle-favoritos");
 const menuCategorias = document.getElementById("menu-categorias");
-const catalogo = document.getElementById("catalogo");
 const volverBtn = document.getElementById("volver-menu");
 
 // == TOGGLE FAVORITOS ==
@@ -182,7 +180,6 @@ window.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("bienvenidaMostrada", "1");
   }
   marcarFavoritos();
-  activarLikeBtns();
   actualizarContadorFavoritos();
 
   const ultimaCategoria = localStorage.getItem("ultimaCategoria");
@@ -227,14 +224,6 @@ if (modal) {
   });
 }
 
-verPreviewBtn.addEventListener("click", () => {
-  if (modalImg.src) {
-    tattooPreview.src = modalImg.src;
-    previewContainer.style.display = "block";
-    tattooPreview.style.pointerEvents = "auto";
-  }
-});
-
 cerrarModal.addEventListener("click", () => {
   modal.style.display = "none";
 });
@@ -242,6 +231,14 @@ cerrarModal.addEventListener("click", () => {
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.style.display = "none";
+  }
+});
+
+verPreviewBtn.addEventListener("click", () => {
+  if (modalImg.src) {
+    tattooPreview.src = modalImg.src;
+    previewContainer.style.display = "block";
+    tattooPreview.style.pointerEvents = "auto";
   }
 });
 
