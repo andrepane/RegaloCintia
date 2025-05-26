@@ -12,21 +12,49 @@ function saveFavoritos(favoritos) {
 }
 
 // == FEEDBACK VISUAL ==
-function showToast(msg) {
+function showToast(msg, duration = 4000) {
   let toast = document.getElementById("toast-msg");
   if (!toast) {
     toast = document.createElement("div");
     toast.id = "toast-msg";
     toast.setAttribute("role", "status");
     toast.setAttribute("aria-live", "polite");
-    toast.style = "position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#bfa76f;color:#222;padding:1rem 1.5rem;border-radius:2rem;z-index:9999;font-size:1.1rem;box-shadow:0 0 8px #0008;opacity:0;transition:opacity 0.5s;";
+    toast.style = `
+      position:fixed;
+      bottom:2rem;
+      left:50%;
+      transform:translateX(-50%);
+      background:#bfa76f;
+      color:#222;
+      padding:1.1rem 2rem;
+      border-radius:2rem;
+      z-index:9999;
+      font-size:1.15rem;
+      font-weight:bold;
+      box-shadow:0 6px 32px #0007;
+      opacity:0;
+      pointer-events:auto;
+      cursor:pointer;
+      transition:opacity 0.4s, bottom 0.4s;
+    `;
     document.body.appendChild(toast);
+
+    // Permite cerrar tocando el toast
+    toast.addEventListener("click", () => {
+      toast.style.opacity = "0";
+      toast.style.bottom = "1rem";
+    });
   }
   toast.textContent = msg;
   toast.style.opacity = "1";
-  setTimeout(() => (toast.style.opacity = "0"), 1800);
+  toast.style.bottom = "2rem";
+  // Oculta después de la duración especificada
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.bottom = "1rem";
+  }, duration);
 }
-
 // == MARCAR FAVORITOS ==
 function marcarFavoritos() {
   const favoritos = getFavoritos();
