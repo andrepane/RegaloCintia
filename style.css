@@ -1,15 +1,35 @@
+:root {
+  --main-bg: #222;
+  --accent: #bfa76f;
+  --accent-light: #ffe6a7;
+  --text: #fff;
+  --text-secondary: #eee;
+  --card-bg: #1e1e1e;
+  --shadow: 0 0 15px #0006;
+  --radius: 1.5rem;
+  --font-main: "Poppins", Arial, sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html,
 body {
-  overflow-x: hidden; /* elimina scroll horizontal global */
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
   touch-action: manipulation;
-  background-color: #222;
-  font-family: Poppins;
+  background-color: var(--main-bg);
+  font-family: var(--font-main);
+  color: var(--text);
+  font-size: 16px;
+  opacity: 0;
+  animation: bodyFadeIn 0.7s ease-in forwards;
+}
+
+@keyframes bodyFadeIn {
+  to { opacity: 1; }
 }
 
 .header {
@@ -18,22 +38,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom, #111, #222);
+  background: linear-gradient(to bottom, #111, var(--main-bg));
   text-align: center;
   position: relative;
   padding: 0 1rem;
-}
-
-#typewriter {
-  animation: fadeInUp 1s ease 1s forwards;
-  opacity: 0;
-  transform: translateY(30px);
-}
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .header--container {
@@ -43,10 +51,23 @@ body {
   justify-content: center;
 }
 
+#typewriter {
+  animation: fadeInUp 1s ease 1s forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .text {
   font-size: 1.8rem;
   letter-spacing: 0.1rem;
-  background: linear-gradient(90deg, #eee, #bfa76f, #eee);
+  background: linear-gradient(90deg, var(--text-secondary), var(--accent), var(--text-secondary));
   background-size: 200%;
   background-position: 0% 50%;
   -webkit-background-clip: text;
@@ -58,23 +79,21 @@ body {
 #cursor {
   display: inline-block;
   animation: blink 0.75s step-end infinite;
-  color: transparent; /* Evitamos conflictos */
+  color: transparent;
   width: 3px;
-  background: #fff;
+  background: var(--text);
   height: 1.2em;
   margin-left: 2px;
-  box-shadow: 0 0 8px #fff, 0 0 20px #fff5;
+  box-shadow: 0 0 8px var(--text), 0 0 20px #fff5;
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
 
 .vale--container {
   min-height: 100dvh;
-  color: #eee;
+  color: var(--text-secondary);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,14 +101,13 @@ body {
   text-align: center;
   position: relative;
   width: 100%;
-  overflow: hidden; /* evita desbordamientos internos */
   max-width: 90vw;
-  margin: 0 auto;
+  margin: 0 auto 3rem auto;
   padding: 2rem 1.5rem;
-  border-radius: 1.5rem;
-  background: #1e1e1e;
-  box-shadow: 0 0 15px #0006;
-  margin-bottom: 3rem;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 .pulse {
@@ -98,66 +116,33 @@ body {
 }
 
 @keyframes pulse {
-  0% {
-    transform: scale(1.3);
-    opacity: 0.6;
-  }
-  5% {
-    transform: scale(1.6);
-    opacity: 1;
-  } /* primer golpe */
-  10% {
-    transform: scale(1.3);
-    opacity: 0.6;
-  }
-  15% {
-    transform: scale(1.6);
-    opacity: 1;
-  } /* segundo golpe */
-  20% {
-    transform: scale(1.3);
-    opacity: 0.6;
-  }
-  55% {
-    transform: scale(1.3);
-    opacity: 0.6;
-  }
-  60% {
-    transform: scale(1.6);
-    opacity: 1;
-  } /* tercer golpe */
-  65% {
-    transform: scale(1.3);
-    opacity: 0.6;
-  }
-  70% {
-    transform: scale(1.6);
-    opacity: 1;
-  } /* cuarto golpe */
-  85% {
-    transform: scale(1.3);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(1.3);
-    opacity: 0.6;
-  } /* pausa antes de reiniciar */
+  0% { transform: scale(1.3); opacity: 0.6; }
+  5% { transform: scale(1.6); opacity: 1; }
+  10% { transform: scale(1.3); opacity: 0.6; }
+  15% { transform: scale(1.6); opacity: 1; }
+  20% { transform: scale(1.3); opacity: 0.6; }
+  55% { transform: scale(1.3); opacity: 0.6; }
+  60% { transform: scale(1.6); opacity: 1; }
+  65% { transform: scale(1.3); opacity: 0.6; }
+  70% { transform: scale(1.6); opacity: 1; }
+  85% { transform: scale(1.3); opacity: 0.6; }
+  100% { transform: scale(1.3); opacity: 0.6; }
 }
+
 .vale--text {
   font-size: 1.6rem;
   line-height: 1.8;
   max-width: 40ch;
-  white-space: wrap;
+  white-space: normal;
   text-align: center;
 }
 
 .scratch-card {
   position: relative;
-  width: auto;
-  height: auto;
+  width: 100%;
   min-height: 400px;
   max-width: 300px;
-  aspect-ratio: unset;
+  aspect-ratio: 3/4;
   margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
@@ -165,13 +150,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #1a1a1a;
-  box-shadow: 0 0 15px #0008;
+  background: linear-gradient(135deg, #1a1a1a, var(--main-bg));
+  box-shadow: inset 0 0 15px #0006, 0 0 15px #0008;
   padding: 1rem;
   gap: 0.5rem;
-  border: 2px dashed #bfa76f;
-  background: linear-gradient(135deg, #1a1a1a, #222);
-  box-shadow: inset 0 0 15px #0006, 0 0 15px #0008;
+  border: 2px dashed var(--accent);
   background-image: radial-gradient(#333 1px, transparent 1px);
   background-size: 10px 10px;
   background-color: #1a1a1a;
@@ -201,8 +184,8 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   text-align: center;
-  color: #eee;
-  font-family: "Poppins", sans-serif;
+  color: var(--text-secondary);
+  font-family: var(--font-main);
 }
 
 .span1 {
@@ -214,7 +197,7 @@ body {
 h1 {
   position: relative;
   display: inline-block;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-main);
   font-size: 1.8rem;
   letter-spacing: 0.2rem;
   color: #e0e0e0;
@@ -222,7 +205,6 @@ h1 {
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
   text-shadow: 1px 1px 2px #000, -1px -1px 2px #444;
-  letter-spacing: 0.1rem;
 }
 
 h1::after {
@@ -230,42 +212,78 @@ h1::after {
   position: absolute;
   width: 100%;
   height: 2px;
-  background: #bfa76f;
+  background: var(--accent);
   bottom: 0;
   left: 0;
 }
 
 .scratch-reveal p {
   font-size: 1rem;
-  font-family: Poppins;
+  font-family: var(--font-main);
 }
 
 .inspo-btn {
   background-color: transparent;
   border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .inspo-btn a {
+  display: inline-block;
   margin-top: 1rem;
   background: transparent;
-  color: #bfa76f;
-  border: 1px solid #bfa76f;
-  padding: 0.5rem 1rem;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.75rem 1.25rem;
   border-radius: 8px;
   font-family: inherit;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
   font-size: 1.3rem;
+  min-height: 44px;
+  min-width: 44px;
 }
 
-.inspo-btn a:hover {
-  background: #bfa76f;
-  color: #111;
-}
-
+.inspo-btn a:hover,
 .inspo-btn a:active {
-  background: #bfa76f;
+  background: var(--accent);
   color: #111;
 }
 
+.inspo-btn a:focus {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+/* Responsive: Mobile-first and optimal for all devices */
+@media (max-width: 480px) {
+  .header,
+  .header--container,
+  .vale--container {
+    padding: 0.5rem !important;
+  }
+  .text,
+  .vale--text {
+    font-size: 1.15rem;
+  }
+  h1 {
+    font-size: 1.2rem;
+  }
+  .scratch-card {
+    max-width: 96vw;
+    min-height: 220px;
+    padding: 0.5rem;
+  }
+  .vale--container {
+    border-radius: 1rem;
+  }
+}
+
+/* Extra: Smooth transitions for interactive elements */
+button,
+a,
+.inspo-btn a {
+  transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s;
+}
