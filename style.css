@@ -287,3 +287,51 @@ a,
 .inspo-btn a {
   transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s;
 }
+
+.swipe-container {
+  width: 100%;
+  max-width: 270px;
+  margin: 1.5rem auto 0 auto;
+  user-select: none;
+}
+
+.swipe-track {
+  position: relative;
+  background: #333;
+  border-radius: 2rem;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.swipe-thumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 2px 8px #0005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s;
+  touch-action: pan-x;
+}
+
+.swipe-text {
+  flex: 1;
+  text-align: center;
+  color: #fff;
+  font-size: 1.05rem;
+  font-family: var(--font-main);
+  z-index: 1;
+  pointer-events: none;
+  letter-spacing: .03em;
+}
