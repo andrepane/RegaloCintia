@@ -46,7 +46,10 @@ h1 {
   font-size: 1.5rem;
 }
 
+
 .categoria-btn {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   max-width: 300px;
   margin: 0.5rem 0;
@@ -61,6 +64,26 @@ h1 {
   cursor: pointer;
   touch-action: manipulation;
   transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.categoria-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(var(--accent) 0deg, var(--accent) 5deg, transparent 5deg 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  animation: girarBorde 3s linear infinite;
+}
+
+@keyframes girarBorde {
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 .categoria-btn:active {
