@@ -48,16 +48,26 @@ window.addEventListener("load", () => {
 
     ctx.clearRect(0, 0, width, height);
 
-    // Fondo gris degradado 
+    // Fondo dorado degradado con textura
     const grad = ctx.createLinearGradient(0, 0, width, height);
-    grad.addColorStop(0, "#bbbbbb");
-    grad.addColorStop(1, "#777777");
+    grad.addColorStop(0, "#ffe6a7");
+    grad.addColorStop(1, "#bfa76f");
 
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
 
+    // Líneas diagonales sutiles
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    for (let i = -height; i < width; i += 20) {
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i + height, height);
+      ctx.stroke();
+    }
+
     // Texto central
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#333";
     ctx.font = "bold 36px 'Poppins', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
