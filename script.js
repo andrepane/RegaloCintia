@@ -37,6 +37,7 @@ window.addEventListener("load", () => {
 
   let yaRascado = false;
   let drawCount = 0;
+  let confettiLanzado = false;
 
   function dibujarCanvas() {
     if (yaRascado) return;
@@ -122,6 +123,7 @@ window.addEventListener("load", () => {
       canvas.style.pointerEvents = "none";
       mostrarSliderDescubre();
       mostrarBotonCompartir();
+      lanzarConfeti();
     }
   }
 
@@ -149,6 +151,12 @@ window.addEventListener("load", () => {
     if (shareBtn) {
       shareBtn.style.display = "block";
     }
+  }
+
+  function lanzarConfeti() {
+    if (confettiLanzado || typeof confetti !== "function") return;
+    confettiLanzado = true;
+    confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
   }
 
   function inicializarSliderSwipe() {
