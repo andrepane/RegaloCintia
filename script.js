@@ -37,6 +37,13 @@ window.addEventListener("load", () => {
   let yaRascado = false;
   let drawCount = 0;
 
+  const actionContainer = document.querySelector('.action-buttons');
+  const shareBtn = document.getElementById('share-btn');
+  const printBtn = document.getElementById('print-btn');
+
+  if (shareBtn) shareBtn.addEventListener('click', compartirVale);
+  if (printBtn) printBtn.addEventListener('click', imprimirVale);
+
   function dibujarCanvas() {
     if (yaRascado) return;
 
@@ -120,6 +127,7 @@ window.addEventListener("load", () => {
       canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
       mostrarSliderDescubre();
+      mostrarBotonesAccion();
     }
   }
 
@@ -212,5 +220,47 @@ window.addEventListener("load", () => {
       document.body.style.userSelect = "";
       dragging = false;
     };
+  }
+
+  function mostrarBotonesAccion() {
+    if (actionContainer) actionContainer.style.display = 'flex';
+  }
+
+  async function generarPDFBlob() {
+    const card = document.querySelector('.scratch-card');
+    const canvasImg = await html2canvas(card);
+    const imgData = canvasImg.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'px',
+      format: [canvasImg.width, canvasImg.height]
+    });
+    pdf.addImage(imgData, 'PNG', 0, 0, canvasImg.width, canvasImg.height);
+    return pdf.output('blob');
+  }
+
+  async function compartirVale() {
+    const blob = await generarPDFBlob();
+    const file = new File([blob], 'vale.pdf', { type: 'application/pdf' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: 'Vale para un tatuaje' });
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'vale.pdf';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      alert('El PDF se ha descargado. Comp\u00E1rtelo manualmente por WhatsApp.');
+    }
+  }
+
+  function imprimirVale() {
+    window.print();
   }
 });

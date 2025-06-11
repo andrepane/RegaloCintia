@@ -17,6 +17,8 @@
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5I7IuAv89xDSHLheXDBlnJrped1IovnHgwlHGawEq+y3OCAXoTr4Wr9PXgCulvRlQCLOwBEmpLkM7rSa2Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-l1I5LZ8PIS6KyHR+Y6SY+4PSJVpaz6RtWLpmjHtkobaN6D+PfYZ7R6pujISiYDUFxu05oig3NbS1V6jIuW0yqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
     <header class="header">
@@ -49,11 +51,19 @@
             <h1>Vale Por Un Tatuaje En Pareja</h1>
             <p>Fecha: ____________ (lo antes posible)</p>
             <p>Precio: ____________ (ilimitado)</p>
+            <div class="action-buttons" style="display:none">
+              <button id="share-btn" class="action-btn">
+                <span class="material-symbols-outlined">share</span> Compartir
+              </button>
+              <button id="print-btn" class="action-btn">
+                <span class="material-symbols-outlined">print</span> Imprimir
+              </button>
+            </div>
             <div id="swipe-container" class="swipe-container" style="display:none;">
-  <div class="swipe-track">
-    <div class="swipe-thumb" id="swipe-thumb">
-      <span class="material-symbols-outlined">arrow_forward</span>
-    </div>
+              <div class="swipe-track">
+                <div class="swipe-thumb" id="swipe-thumb">
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
     <span class="swipe-text">Desliza para descubrir</span>
   </div>
 </div>

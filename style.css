@@ -257,6 +257,34 @@ h1::after {
   outline-offset: 2px;
 }
 
+.action-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.action-btn {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.action-btn:hover,
+.action-btn:active {
+  background: var(--accent);
+  color: #111;
+}
+
 /* Responsive: Mobile-first and optimal for all devices */
 @media (max-width: 480px) {
   .header,
@@ -374,4 +402,20 @@ a,
   40% { transform: translateX(-2px); }
   60% { transform: translateX(3px);}
   80% { transform: translateX(0);}
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .scratch-card, .scratch-card * {
+    visibility: visible;
+  }
+  .scratch-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: none;
+  }
 }
