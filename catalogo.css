@@ -59,24 +59,17 @@ h1 {
 
 .categoria-btn {
   position: relative;
-  z-index: 2;
+  z-index: 0;
   overflow: hidden;
-  width: 100%;
-  max-width: 300px;
-  margin: 0.5rem 0;
-  padding: 1rem 1.5rem;
   background: #1a1a1a;
-  border: none;
+  color: white;
   border-radius: 50px;
-  color: #fff;
+  padding: 1rem 1.5rem;
   font-size: 1.3rem;
   font-weight: 600;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  touch-action: manipulation;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
 }
-
 
 .categoria-btn::before {
   content: "";
@@ -86,22 +79,13 @@ h1 {
   right: -4px;
   bottom: -4px;
   border-radius: inherit;
-  padding: 2px;
-  background: conic-gradient(#FFD700 0deg 30deg, transparent 30deg 360deg);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  z-index: 1;
-  animation: bordeGira 3s linear infinite;
-  transform-origin: center;
-  pointer-events: none;
-}
-
-
-@keyframes bordeGira {
-  to {
-    transform: rotate(1turn);
-  }
+  background: conic-gradient(
+    from 0deg,
+    #FFD700 0deg 20deg,
+    transparent 20deg 360deg
+  );
+  animation: spinBorder 2s linear infinite;
+  z-index: -1;
 }
 
 
