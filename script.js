@@ -226,24 +226,28 @@ window.addEventListener("load", () => {
     shareBtn.addEventListener("click", async () => {
       try {
         const scratchCard = document.querySelector(".scratch-card");
-        const canvasImg = await html2canvas(scratchCard);
+        const canvasImg = await html2canvas(scratchCard, { useCORS: true });
         const imgData = canvasImg.toDataURL("image/png");
         const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF();
-        const width = pdf.internal.pageSize.getWidth();
-        const height = (canvasImg.height * width) / canvasImg.width;
-        pdf.addImage(imgData, "PNG", 0, 0, width, height);
+        const pdf = new jsPDF({
+          orientation: "portrait",
+          unit: "px",
+          format: [canvasImg.width, canvasImg.height],
+        });
+        pdf.addImage(imgData, "PNG", 0, 0, canvasImg.width, canvasImg.height);
         const blob = pdf.output("blob");
         const file = new File([blob], "vale.pdf", { type: "application/pdf" });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: "Vale" });
-        } else {
+          await navigator.share({ files: [file], title: "Vale rascado" });
+        } else if (navigator.share) {
           const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "vale.pdf";
-          a.click();
-          URL.revokeObjectURL(url);
+          try {
+            await navigator.share({ title: "Vale rascado", url });
+          } finally {
+            URL.revokeObjectURL(url);
+          }
+        } else {
+          pdf.save("vale.pdf");
         }
       } catch (err) {
         console.error("Error al compartir", err);
