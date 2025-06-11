@@ -104,7 +104,7 @@ h1 {
   border-bottom-right-radius: 1px;
   overflow: hidden;
   animation: span1 2s linear infinite;
-  animation-delay: 1s;
+  animation-delay: 0s;
 }
 
 @keyframes span1 {
@@ -126,7 +126,7 @@ h1 {
   border-bottom-right-radius: 1px;
   overflow: hidden;
   animation: span2 2s linear infinite;
-  animation-delay: 2s;
+  animation-delay: 0s;
 }
 
 @keyframes span2 {
@@ -148,7 +148,7 @@ h1 {
   border-bottom-right-radius: 1px;
   overflow: hidden;
   animation: span3 2s linear infinite;
-  animation-delay: 3s;
+  animation-delay: 0s;
 }
 
 @keyframes span3 {
@@ -171,7 +171,7 @@ h1 {
   border-bottom-right-radius: 1px;
   overflow: hidden;
   animation: span4 2s linear infinite;
-  animation-delay: 4s;
+  animation-delay: 0s;
 }
 
 @keyframes span4 {
