@@ -85,17 +85,9 @@ h1 {
   right: -2px;
   bottom: -2px;
   border-radius: inherit;
-  background: conic-gradient(from 0deg, #FFD700 0deg, #FFD700 30deg, transparent 30deg 360deg);
+  border: 2px dashed #FFD700;
   z-index: 1;
   animation: bordeGira 3s linear infinite;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
   pointer-events: none;
 }
 
