@@ -59,6 +59,7 @@ h1 {
 
 .categoria-btn {
   position: relative;
+  z-index: 2;
   overflow: hidden;
   width: 100%;
   max-width: 300px;
