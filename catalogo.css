@@ -88,8 +88,11 @@ h1 {
   background: conic-gradient(from 0deg, #FFD700 0deg, #FFD700 30deg, transparent 30deg 360deg);
   z-index: 1;
   animation: bordeGira 3s linear infinite;
-  mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
