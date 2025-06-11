@@ -1,3 +1,13 @@
+/* Variables de color */
+:root {
+  --main-bg: #222;
+  --accent: #bfa76f;
+  --accent-light: #ffe6a7;
+  --text: #fff;
+  --text-secondary: #eee;
+  --font-main: "Poppins", sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
