@@ -33,7 +33,7 @@ function showToast(msg, duration = 4000) {
       font-weight:bold;
       box-shadow:0 6px 32px #0007;
       opacity:0;
-      pointer-events:auto;
+      pointer-events:none;
       cursor:pointer;
       transition:opacity 0.4s, bottom 0.4s;
     `;
@@ -43,16 +43,19 @@ function showToast(msg, duration = 4000) {
     toast.addEventListener("click", () => {
       toast.style.opacity = "0";
       toast.style.bottom = "1rem";
+      toast.style.pointerEvents = "none";
     });
   }
   toast.textContent = msg;
   toast.style.opacity = "1";
   toast.style.bottom = "2rem";
+  toast.style.pointerEvents = "auto";
   // Oculta después de la duración especificada
   clearTimeout(toast._timeout);
   toast._timeout = setTimeout(() => {
     toast.style.opacity = "0";
     toast.style.bottom = "1rem";
+    toast.style.pointerEvents = "none";
   }, duration);
 }
 // == MARCAR FAVORITOS ==
