@@ -166,6 +166,18 @@ const toggleBtn = document.getElementById("toggle-favoritos");
 const menuCategorias = document.getElementById("menu-categorias");
 const volverBtn = document.getElementById("volver-menu");
 
+function mostrarMenu() {
+  menuCategorias.style.display = "flex";
+  requestAnimationFrame(() => menuCategorias.classList.add("visible"));
+}
+
+function ocultarMenu() {
+  menuCategorias.classList.remove("visible");
+  setTimeout(() => {
+    menuCategorias.style.display = "none";
+  }, 450);
+}
+
 // == TOGGLE FAVORITOS ==
 toggleBtn.addEventListener("click", () => {
   soloFavoritosActivo = !soloFavoritosActivo;
@@ -188,7 +200,7 @@ document.querySelectorAll(".categoria-btn").forEach((btn) => {
         card.dataset.categoria === categoria ? "block" : "none";
     });
 
-    menuCategorias.style.display = "none";
+    ocultarMenu();
     catalogo.style.display = "block";
     toggleBtn.style.display = "block";
     volverBtn.style.display = "block";
@@ -200,7 +212,7 @@ volverBtn.addEventListener("click", () => {
   catalogo.style.display = "none";
   toggleBtn.style.display = "none";
   volverBtn.style.display = "none";
-  menuCategorias.style.display = "flex";
+  mostrarMenu();
   localStorage.removeItem("ultimaCategoria");
 });
 
@@ -219,11 +231,14 @@ window.addEventListener("DOMContentLoaded", () => {
       card.style.display =
         card.dataset.categoria === ultimaCategoria ? "block" : "none";
     });
+    menuCategorias.classList.remove("visible");
     menuCategorias.style.display = "none";
     catalogo.style.display = "block";
     toggleBtn.style.display = "block";
     volverBtn.style.display = "block";
     window.scrollTo({ top: 0 });
+  } else {
+    mostrarMenu();
   }
 });
 
