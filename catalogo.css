@@ -1,6 +1,6 @@
 /* Variables de color */
 :root {
-  --main-bg: #222;
+  --main-bg: #000;
   --accent: #bfa76f;
   --accent-light: #ffe6a7;
   --text: #fff;
@@ -15,7 +15,7 @@
 body {
   margin: 0;
   padding: 1rem;
-  background-color: #222;
+  background-color: var(--main-bg);
   color: #eee;
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
@@ -36,7 +36,7 @@ h1 {
   justify-content: center;
   padding: 2rem 1rem;
   gap: 2rem;
-  background: #111;
+  background: var(--main-bg);
   transform: translateY(30px);
   opacity: 0;
   transition: transform 0.45s ease, opacity 0.45s ease;
@@ -65,22 +65,22 @@ h1 {
 }
 
 .boton {
-  height: 100px;
-  width: 300px;
+  height: 90px;
+  width: 280px;
   font-family: poppins;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   display: inline-flex;
   margin: auto;
   position: relative;
   align-items: center;
-  padding: 30px 28px;
+  padding: 1.5rem;
   justify-content: center;
   text-decoration: none;
-  font-size: 22px;
+  font-size: 1.4rem;
   font-weight: 700;
   overflow: hidden;
-  background: linear-gradient(135deg, #a7848b, #b88f93);
-  color: #f9efd4;
+  background: linear-gradient(135deg, #1b1b1b, #333);
+  color: var(--accent);
   border: none;
   box-sizing: border-box;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
@@ -96,10 +96,10 @@ h1 {
 
 .boton span:nth-of-type(1) {
   height: 5px;
-  width: 300px;
-  background: linear-gradient(to right, #0000, #5e373e);
+  width: 280px;
+  background: linear-gradient(to right, #0000, var(--accent));
   top: 0;
-  left: -300px;
+  left: -280px;
   border-top-right-radius: 1px;
   border-bottom-right-radius: 1px;
   overflow: hidden;
@@ -109,17 +109,17 @@ h1 {
 
 @keyframes span1 {
   from {
-    left: -300px;
+    left: -280px;
   }
   to {
-    left: 300px;
+    left: 280px;
   }
 }
 
 .boton span:nth-of-type(2) {
   height: 100px;
   width: 5px;
-  background: linear-gradient(to bottom, #0000, #5e373e);
+  background: linear-gradient(to bottom, #0000, var(--accent));
   right: 0;
   top: -100px;
   border-top-right-radius: 1px;
@@ -140,10 +140,10 @@ h1 {
 
 .boton span:nth-of-type(3) {
   height: 5px;
-  width: 300px;
-  background: linear-gradient(to left, #0000, #5e373e);
+  width: 280px;
+  background: linear-gradient(to left, #0000, var(--accent));
   bottom: 0;
-  right: -300px;
+  right: -280px;
   border-top-right-radius: 1px;
   border-bottom-right-radius: 1px;
   overflow: hidden;
@@ -153,17 +153,17 @@ h1 {
 
 @keyframes span3 {
   from {
-    right: -300px;
+    right: -280px;
   }
   to {
-    right: 300px;
+    right: 280px;
   }
 }
 
 .boton span:nth-of-type(4) {
   height: 100px;
   width: 5px;
-  background: linear-gradient(to top, #0000, #5e373e);
+  background: linear-gradient(to top, #0000, var(--accent));
   bottom: -100px;
   left: 0;
   position: absolute;
