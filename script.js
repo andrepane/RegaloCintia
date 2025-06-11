@@ -33,6 +33,7 @@ window.addEventListener("load", () => {
   const canvas = document.getElementById("scratchCanvas");
   const ctx = canvas.getContext("2d");
   const container = canvas.parentElement;
+  const shareBtn = document.getElementById("share-vale");
 
   let yaRascado = false;
   let drawCount = 0;
@@ -120,6 +121,7 @@ window.addEventListener("load", () => {
       canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
       mostrarSliderDescubre();
+      mostrarBotonCompartir();
     }
   }
 
@@ -140,6 +142,12 @@ window.addEventListener("load", () => {
       swipeContainer.style.display = "block";
       inicializarSliderSwipe();
       sliderInicializado = true;
+    }
+  }
+
+  function mostrarBotonCompartir() {
+    if (shareBtn) {
+      shareBtn.style.display = "block";
     }
   }
 
@@ -212,5 +220,34 @@ window.addEventListener("load", () => {
       document.body.style.userSelect = "";
       dragging = false;
     };
+  }
+
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      try {
+        const scratchCard = document.querySelector(".scratch-card");
+        const canvasImg = await html2canvas(scratchCard);
+        const imgData = canvasImg.toDataURL("image/png");
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
+        const width = pdf.internal.pageSize.getWidth();
+        const height = (canvasImg.height * width) / canvasImg.width;
+        pdf.addImage(imgData, "PNG", 0, 0, width, height);
+        const blob = pdf.output("blob");
+        const file = new File([blob], "vale.pdf", { type: "application/pdf" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: "Vale" });
+        } else {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "vale.pdf";
+          a.click();
+          URL.revokeObjectURL(url);
+        }
+      } catch (err) {
+        console.error("Error al compartir", err);
+      }
+    });
   }
 });
