@@ -1,0 +1,47 @@
+:root {
+  --main-bg: #000;
+  --accent: #bfa76f;
+  --text: #fff;
+  --font-main: "Poppins", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  background-color: var(--main-bg);
+  color: var(--text);
+  font-family: var(--font-main);
+}
+
+h1 {
+  text-align: center;
+  color: var(--accent);
+}
+
+.lista-tatuadores {
+  list-style: none;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0;
+}
+
+.lista-tatuadores li {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.volver-catalogo {
+  display: block;
+  width: 11rem;
+  margin: 2rem auto;
+  padding: 0.6rem 1.2rem;
+  text-align: center;
+  background-color: #222;
+  color: var(--accent);
+  border: 2px solid #444;
+  border-radius: 8px;
+  text-decoration: none;
+}

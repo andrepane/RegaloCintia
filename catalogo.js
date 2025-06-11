@@ -163,6 +163,7 @@ function mostrarMensajeNoFavoritos(visible) {
 
 // == ELEMENTOS DOM GLOBALES ==
 const toggleBtn = document.getElementById("toggle-favoritos");
+const btnTatuadores = document.getElementById("btn-tatuadores");
 const menuCategorias = document.getElementById("menu-categorias");
 const volverBtn = document.getElementById("volver-menu");
 
@@ -204,6 +205,7 @@ document.querySelectorAll(".categoria-btn").forEach((btn) => {
     catalogo.style.display = "block";
     toggleBtn.style.display = "block";
     volverBtn.style.display = "block";
+    btnTatuadores.style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
@@ -212,6 +214,7 @@ volverBtn.addEventListener("click", () => {
   catalogo.style.display = "none";
   toggleBtn.style.display = "none";
   volverBtn.style.display = "none";
+  btnTatuadores.style.display = "none";
   mostrarMenu();
   localStorage.removeItem("ultimaCategoria");
 });
@@ -236,6 +239,7 @@ window.addEventListener("DOMContentLoaded", () => {
     catalogo.style.display = "block";
     toggleBtn.style.display = "block";
     volverBtn.style.display = "block";
+    btnTatuadores.style.display = "block";
     window.scrollTo({ top: 0 });
   } else {
     mostrarMenu();
