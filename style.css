@@ -1,5 +1,5 @@
 :root {
-  --main-bg: #222;
+  --main-bg: #000;
   --accent: #bfa76f;
   --accent-light: #ffe6a7;
   --text: #fff;
@@ -190,7 +190,7 @@ body {
 
 .span1 {
   scale: 2;
-  color: #ff9999;
+  color: var(--accent);
   filter: drop-shadow(0 0 3px #fff9) drop-shadow(0 0 10px #fff9);
 }
 
