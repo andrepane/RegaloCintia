@@ -57,7 +57,7 @@ h1 {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
   border: none;
   border-radius: 50px;
-  color: #111;
+  color: #fff;
   font-size: 1.3rem;
   font-weight: 600;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
