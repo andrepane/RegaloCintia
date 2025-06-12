@@ -399,6 +399,71 @@ function hacerDraggable(el) {
 
 hacerDraggable(document.getElementById("tattoo-preview"));
 
+// == GESTOS MULTITOUCH PARA ESCALAR Y ROTAR ==
+function habilitarGestos(el) {
+  const pointers = new Map();
+  let distanciaInicial = 0;
+  let anguloInicial = 0;
+  let escalaInicio = 0;
+  let rotacionInicio = 0;
+
+  function getDistancia(p1, p2) {
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    return Math.hypot(dx, dy);
+  }
+
+  function getAngulo(p1, p2) {
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    return Math.atan2(dy, dx);
+  }
+
+  function actualizarValores() {
+    sliderTamano.value = escalaActual;
+    sliderRotacion.value = rotacionActual;
+    actualizarTransformaciones();
+  }
+
+  el.addEventListener("pointerdown", (e) => {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    el.setPointerCapture(e.pointerId);
+    if (pointers.size === 2) {
+      const [p1, p2] = Array.from(pointers.values());
+      distanciaInicial = getDistancia(p1, p2);
+      anguloInicial = getAngulo(p1, p2);
+      escalaInicio = parseFloat(escalaActual);
+      rotacionInicio = parseFloat(rotacionActual);
+    }
+  });
+
+  el.addEventListener("pointermove", (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) {
+      const [p1, p2] = Array.from(pointers.values());
+      const distanciaActual = getDistancia(p1, p2);
+      const anguloActual = getAngulo(p1, p2);
+      const factorEscala = distanciaActual / distanciaInicial;
+      let nuevaEscala = escalaInicio * factorEscala;
+      nuevaEscala = Math.max(10, Math.min(150, nuevaEscala));
+      let nuevaRotacion = rotacionInicio + (anguloActual - anguloInicial) * (180 / Math.PI);
+      if (nuevaRotacion > 180) nuevaRotacion -= 360;
+      if (nuevaRotacion < -180) nuevaRotacion += 360;
+      escalaActual = nuevaEscala;
+      rotacionActual = nuevaRotacion;
+      actualizarValores();
+    }
+  });
+
+  function eliminarPointer(e) {
+    pointers.delete(e.pointerId);
+  }
+
+  el.addEventListener("pointerup", eliminarPointer);
+  el.addEventListener("pointercancel", eliminarPointer);
+}
+
 // == SLIDERS PARA TAMAÑO Y ROTACIÓN ==
 const sliderTamano = document.getElementById("slider-tamano");
 const sliderRotacion = document.getElementById("slider-rotacion");
@@ -416,3 +481,5 @@ function actualizarTransformaciones() {
   tattooPreview.style.width = `${escalaActual}%`;
   tattooPreview.style.transform = `rotate(${rotacionActual}deg) scale(${escalaActual / 40})`;
 }
+
+habilitarGestos(document.getElementById("tattoo-preview"));
