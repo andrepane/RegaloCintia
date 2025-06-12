@@ -89,21 +89,34 @@
         <button id="ver-preview">Ver sobre la piel</button>
       </div>
 
-      <!-- Vista previa del brazo -->
-      <div id="preview-container" style="display: none">
-        <img id="brazo-img" src="assets/brazo.png" alt="Brazo" />
+      
+
+    </div>
+
+    <div id="pantalla-preview" class="pantalla-preview" style="display:none">
+      <span id="cerrar-preview" class="cerrar">&times;</span>
+      <div id="preview-container">
+        <img id="body-img" src="assets/brazo.png" alt="Brazo" />
         <img id="tattoo-preview" src="" alt="Vista previa" />
       </div>
-
+      <div id="body-part-selector">
+        <label>Parte del cuerpo:
+          <select id="body-part-select">
+            <option value="brazo">Brazo</option>
+            <option value="pierna">Pierna</option>
+            <option value="hombro">Hombro</option>
+            <option value="espalda">Espalda</option>
+          </select>
+        </label>
+      </div>
       <div id="controles-tatuaje">
-  <label>Tamaño:
-    <input type="range" id="slider-tamano" min="10" max="150" value="40" />
-  </label>
-  <label>Rotación:
-    <input type="range" id="slider-rotacion" min="-180" max="180" value="0" />
-  </label>
-</div>
-
+        <label>Tamaño:
+          <input type="range" id="slider-tamano" min="10" max="150" value="40" />
+        </label>
+        <label>Rotación:
+          <input type="range" id="slider-rotacion" min="-180" max="180" value="0" />
+        </label>
+      </div>
     </div>
 
     <script src="catalogo.js"></script>

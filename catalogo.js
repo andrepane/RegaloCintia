@@ -253,13 +253,33 @@ const cerrarModal = document.getElementById("cerrar-modal");
 
 const verPreviewBtn = document.getElementById("ver-preview");
 const tattooPreview = document.getElementById("tattoo-preview");
-const previewContainer = document.getElementById("preview-container");
+const pantallaPreview = document.getElementById("pantalla-preview");
+const cerrarPreview = document.getElementById("cerrar-preview");
+const bodyImg = document.getElementById("body-img");
+const bodyPartSelect = document.getElementById("body-part-select");
+const botonContainer = document.getElementById("boton-container");
+
+const bodyImages = {
+  brazo: "assets/brazo.png",
+  pierna: "assets/pierna.png",
+  hombro: "assets/hombro.png",
+  espalda: "assets/espalda.png",
+};
+
+function actualizarBodyImage() {
+  const parte = bodyPartSelect.value;
+  bodyImg.src = bodyImages[parte] || bodyImages.brazo;
+}
+
+bodyPartSelect.addEventListener("change", actualizarBodyImage);
 
 document.querySelectorAll(".card img").forEach((img) => {
   img.addEventListener("click", () => {
     modal.style.display = "flex";
     modalImg.src = img.src;
-    previewContainer.style.display = "none";
+    pantallaPreview.style.display = "none";
+    modalImg.style.display = "block";
+    botonContainer.style.display = "block";
     tattooPreview.src = "";
     modalImg.focus();
   });
@@ -269,27 +289,49 @@ document.querySelectorAll(".card img").forEach((img) => {
 if (modal) {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.style.display === "flex") {
-      modal.style.display = "none";
+      if (pantallaPreview.style.display === "flex") {
+        pantallaPreview.style.display = "none";
+        modalImg.style.display = "block";
+        botonContainer.style.display = "block";
+      } else {
+        modal.style.display = "none";
+      }
     }
   });
 }
 
 cerrarModal.addEventListener("click", () => {
   modal.style.display = "none";
+  pantallaPreview.style.display = "none";
 });
 
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
-    modal.style.display = "none";
+    if (pantallaPreview.style.display === "flex") {
+      pantallaPreview.style.display = "none";
+      modalImg.style.display = "block";
+      botonContainer.style.display = "block";
+    } else {
+      modal.style.display = "none";
+    }
   }
 });
 
 verPreviewBtn.addEventListener("click", () => {
   if (modalImg.src) {
     tattooPreview.src = modalImg.src;
-    previewContainer.style.display = "block";
+    pantallaPreview.style.display = "flex";
+    modalImg.style.display = "none";
+    botonContainer.style.display = "none";
     tattooPreview.style.pointerEvents = "auto";
+    actualizarBodyImage();
   }
+});
+
+cerrarPreview.addEventListener("click", () => {
+  pantallaPreview.style.display = "none";
+  modalImg.style.display = "block";
+  botonContainer.style.display = "block";
 });
 
 // == CONTADOR DE FAVORITOS ==
