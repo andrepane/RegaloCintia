@@ -261,7 +261,7 @@ const botonContainer = document.getElementById("boton-container");
 
 const bodyImages = {
   brazo: "assets/brazo.png",
-  pierna: "assets/piernas.webp",
+  pierna: "assets/pierna.png",
   hombro: "assets/hombro.png",
   espalda: "assets/espalda.png",
 };
