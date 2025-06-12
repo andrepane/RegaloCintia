@@ -33,6 +33,25 @@ h1 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
+/* Enlace para ver el Instagram de cada tatuador */
+.lista-tatuadores a {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  background-color: #222;
+  color: var(--accent);
+  border: 1px solid #444;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.lista-tatuadores a:hover,
+.lista-tatuadores a:active {
+  background-color: var(--accent);
+  color: #111;
+}
+
 .volver-catalogo {
   display: block;
   width: 11rem;
