@@ -446,7 +446,7 @@ function habilitarGestos(el) {
       const anguloActual = getAngulo(p1, p2);
       const factorEscala = distanciaActual / distanciaInicial;
       let nuevaEscala = escalaInicio * factorEscala;
-      nuevaEscala = Math.max(10, Math.min(150, nuevaEscala));
+      nuevaEscala = Math.max(0.5, Math.min(3, nuevaEscala));
       let nuevaRotacion = rotacionInicio + (anguloActual - anguloInicial) * (180 / Math.PI);
       if (nuevaRotacion > 180) nuevaRotacion -= 360;
       if (nuevaRotacion < -180) nuevaRotacion += 360;
@@ -471,15 +471,14 @@ const sliderRotacion = document.getElementById("slider-rotacion");
 sliderTamano.addEventListener("input", actualizarTransformaciones);
 sliderRotacion.addEventListener("input", actualizarTransformaciones);
 
-let escalaActual = 40; // en porcentaje
+let escalaActual = 1; // factor de escala
 let rotacionActual = 0;
 
 function actualizarTransformaciones() {
-  escalaActual = sliderTamano.value;
-  rotacionActual = sliderRotacion.value;
+  escalaActual = parseFloat(sliderTamano.value);
+  rotacionActual = parseFloat(sliderRotacion.value);
 
-  tattooPreview.style.width = `${escalaActual}%`;
-  tattooPreview.style.transform = `rotate(${rotacionActual}deg) scale(${escalaActual / 40})`;
+  tattooPreview.style.transform = `rotate(${rotacionActual}deg) scale(${escalaActual})`;
 }
 
 habilitarGestos(document.getElementById("tattoo-preview"));
