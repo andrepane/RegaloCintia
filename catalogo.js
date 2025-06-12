@@ -264,6 +264,7 @@ const bodyImages = {
   pierna: "assets/piernas.webp",
   hombro: "assets/hombro.png",
   espalda: "assets/espalda.png",
+  antebrazo: "assets/antebrazo.jpg",
 };
 
 function actualizarBodyImage() {
