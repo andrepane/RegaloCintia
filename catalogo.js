@@ -260,11 +260,12 @@ const bodyPartSelect = document.getElementById("body-part-select");
 const botonContainer = document.getElementById("boton-container");
 
 const bodyImages = {
-  brazo: "assets/brazo.png",
+  brazos: "assets/brazos-enteros.png",
   pierna: "assets/piernas.webp",
   hombro: "assets/hombro.png",
   espalda: "assets/espalda.png",
   antebrazo: "assets/antebrazo.jpg",
+  
 };
 
 function actualizarBodyImage() {
