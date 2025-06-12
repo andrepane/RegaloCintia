@@ -354,15 +354,28 @@ function hacerDraggable(el) {
   let offsetX = 0;
   let offsetY = 0;
 
-  function moverElemento(x, y) {
-    el.style.left = `${x - offsetX}px`;
-    el.style.top = `${y - offsetY}px`;
+  const container = document.getElementById("preview-container");
+
+  function moverElemento(pageX, pageY) {
+    const contRect = container.getBoundingClientRect();
+    const maxLeft = container.offsetWidth - el.offsetWidth;
+    const maxTop = container.offsetHeight - el.offsetHeight;
+
+    let nuevoLeft = pageX - contRect.left - offsetX;
+    let nuevoTop = pageY - contRect.top - offsetY;
+
+    nuevoLeft = Math.max(0, Math.min(maxLeft, nuevoLeft));
+    nuevoTop = Math.max(0, Math.min(maxTop, nuevoTop));
+
+    el.style.left = `${nuevoLeft}px`;
+    el.style.top = `${nuevoTop}px`;
   }
 
   el.addEventListener("mousedown", (e) => {
     isDragging = true;
-    offsetX = e.clientX - el.offsetLeft;
-    offsetY = e.clientY - el.offsetTop;
+    const contRect = container.getBoundingClientRect();
+    offsetX = e.clientX - contRect.left - el.offsetLeft;
+    offsetY = e.clientY - contRect.top - el.offsetTop;
     el.classList.add("arrastrando");
   });
 
@@ -380,8 +393,9 @@ function hacerDraggable(el) {
   el.addEventListener("touchstart", (e) => {
     isDragging = true;
     const touch = e.touches[0];
-    offsetX = touch.clientX - el.offsetLeft;
-    offsetY = touch.clientY - el.offsetTop;
+    const contRect = container.getBoundingClientRect();
+    offsetX = touch.clientX - contRect.left - el.offsetLeft;
+    offsetY = touch.clientY - contRect.top - el.offsetTop;
     el.classList.add("arrastrando");
   });
 
