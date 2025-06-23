@@ -292,7 +292,7 @@ h1::after {
   }
   .scratch-card {
     max-width: 96vw;
-    min-height: 320px;
+    min-height: 420px;
     padding: 0.5rem;
   }
   .vale--container {
