@@ -394,3 +394,19 @@ a,
 .share-btn:active {
   color: var(--accent-light);
 }
+
+.pdf-btn {
+  display: block;
+  margin: 1rem auto 2rem;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 2.2rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.pdf-btn:hover,
+.pdf-btn:active {
+  color: var(--accent-light);
+}

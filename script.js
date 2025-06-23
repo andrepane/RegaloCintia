@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
   const canvas = document.getElementById("scratchCanvas");
   const ctx = canvas.getContext("2d");
   const container = canvas.parentElement;
-  const shareBtn = document.getElementById("share-vale");
+  const pdfBtn = document.getElementById("pdf-vale");
 
   let yaRascado = false;
   let drawCount = 0;
@@ -122,7 +122,7 @@ window.addEventListener("load", () => {
       canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
       mostrarSliderDescubre();
-      mostrarBotonCompartir();
+      mostrarBotonPdf();
       lanzarConfeti();
     }
   }
@@ -147,9 +147,9 @@ window.addEventListener("load", () => {
     }
   }
 
-  function mostrarBotonCompartir() {
-    if (shareBtn) {
-      shareBtn.style.display = "block";
+  function mostrarBotonPdf() {
+    if (pdfBtn) {
+      pdfBtn.style.display = "block";
     }
   }
 
@@ -230,8 +230,8 @@ window.addEventListener("load", () => {
     };
   }
 
-  if (shareBtn) {
-    shareBtn.addEventListener("click", async () => {
+  if (pdfBtn) {
+    pdfBtn.addEventListener("click", async () => {
       try {
         const scratchCard = document.querySelector(".scratch-card");
         const canvasImg = await html2canvas(scratchCard, { useCORS: true });
@@ -243,22 +243,14 @@ window.addEventListener("load", () => {
           format: [canvasImg.width, canvasImg.height],
         });
         pdf.addImage(imgData, "PNG", 0, 0, canvasImg.width, canvasImg.height);
-        const blob = pdf.output("blob");
-        const file = new File([blob], "vale.pdf", { type: "application/pdf" });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: "Vale rascado" });
-        } else if (navigator.share) {
-          const url = URL.createObjectURL(blob);
-          try {
-            await navigator.share({ title: "Vale rascado", url });
-          } finally {
-            URL.revokeObjectURL(url);
-          }
+        if (/iP(ad|hone|od)/.test(navigator.userAgent)) {
+          const url = pdf.output("bloburl");
+          window.open(url, "_blank");
         } else {
           pdf.save("vale.pdf");
         }
       } catch (err) {
-        console.error("Error al compartir", err);
+        console.error("Error al crear el PDF", err);
       }
     });
   }
