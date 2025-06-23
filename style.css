@@ -144,7 +144,7 @@ body {
 .scratch-card {
   position: relative;
   width: 100%;
-  min-height: 400px;
+  min-height: 500px;
   max-width: 300px;
   aspect-ratio: 3/4;
   margin: 0 auto;
@@ -292,7 +292,7 @@ h1::after {
   }
   .scratch-card {
     max-width: 96vw;
-    min-height: 220px;
+    min-height: 320px;
     padding: 0.5rem;
   }
   .vale--container {
