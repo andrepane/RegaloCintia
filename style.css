@@ -189,6 +189,7 @@ body {
 }
 
 .scratch-reveal {
+  position: relative;
   z-index: 2;
   height: 100%;
   display: flex;
@@ -197,9 +198,14 @@ body {
   text-align: center;
   color: var(--text-secondary);
   font-family: var(--font-main);
+  padding-top: 3rem;
 }
 
 .span1 {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   scale: 2;
   color: var(--accent);
   filter: drop-shadow(0 0 3px #fff9) drop-shadow(0 0 10px #fff9);
@@ -240,6 +246,11 @@ h1::after {
 .scratch-reveal p {
   font-size: 1rem;
   font-family: var(--font-main);
+}
+
+.nota {
+  font-size: 0.9rem;
+  color: var(--accent-light);
 }
 
 .separator {
