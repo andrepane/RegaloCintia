@@ -170,6 +170,29 @@ body {
   background-color: #1a1a1a;
 }
 
+.scratch-card::before,
+.scratch-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--main-bg);
+  border: 4px groove var(--accent-light);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.scratch-card::before {
+  left: -20px;
+}
+
+.scratch-card::after {
+  right: -20px;
+}
+
 #scratchCanvas {
   position: absolute;
   top: 0;
@@ -194,9 +217,10 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   text-align: center;
+  padding-right: 6rem;
   color: var(--text-secondary);
   font-family: var(--font-main);
-}
+  }
 
 .span1 {
   scale: 2;
@@ -239,6 +263,19 @@ h1::after {
 .scratch-reveal p {
   font-size: 1rem;
   font-family: var(--font-main);
+}
+
+.tattoo-machine {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35%;
+  max-width: 130px;
+  height: auto;
+  filter: invert(100%);
+  opacity: 0.8;
+  pointer-events: none;
 }
 
 .separator {
@@ -320,6 +357,13 @@ h1::after {
   .vale--container {
     border-radius: 1rem;
   }
+  .scratch-reveal {
+    padding-right: 4rem;
+  }
+  .tattoo-machine {
+    width: 50%;
+    max-width: 110px;
+  }
 }
 
 /* Extra: Smooth transitions for interactive elements */
@@ -338,14 +382,17 @@ a,
 
 .swipe-track {
   position: relative;
-  background: linear-gradient(90deg, #2d2d2d 80%, #bfa76f 100%);
+  background: linear-gradient(90deg, #2d2d2d 80%, #bfa76f 100%),
+    linear-gradient(90deg, var(--accent-light), var(--accent));
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
   border-radius: 2rem;
   height: 52px;
   display: flex;
   align-items: center;
   overflow: hidden;
   box-shadow: 0 8px 32px #0004;
-  border: 1.5px solid #bfa76f;
+  border: 2px solid transparent;
 }
 
 .swipe-thumb {
