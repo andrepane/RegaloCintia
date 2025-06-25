@@ -158,7 +158,7 @@ body {
   padding: 1rem;
   gap: 0.5rem;
   border: 4px groove var(--accent-light);
-  background-image: url("imagenes/tatuador.png");
+  background-image: url("images/tatuador.png");
   background-size: cover;
   background-position: center;
 }
