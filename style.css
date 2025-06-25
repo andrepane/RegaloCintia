@@ -144,7 +144,7 @@ body {
 .scratch-card {
   position: relative;
   width: 100%;
-  min-height: 600px;
+  min-height: 550px;
   max-width: 340px;
   aspect-ratio: 3/4;
   margin: 0 auto;
