@@ -324,6 +324,13 @@ h1::after {
   h1 {
     font-size: 1rem;
   }
+  .scratch-reveal {
+    padding-top: 4.5rem;
+  }
+  .scratch-reveal .span1 {
+    top: 0.5rem;
+    scale: 1.8;
+  }
   .scratch-card {
     max-width: 96vw;
     min-height: 80vh;
