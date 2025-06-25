@@ -117,7 +117,7 @@ window.addEventListener("load", () => {
   // SOLO UNA función checkScratchProgress
   function checkScratchProgress() {
     drawCount++;
-    const limiteRascado = 350;
+    const limiteRascado = 400;
     if (drawCount >= limiteRascado) {
       canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
