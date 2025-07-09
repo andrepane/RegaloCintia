@@ -41,7 +41,7 @@ window.addEventListener("load", () => {
 
   // Opcional: activar regeneración automática de zonas rascadas
   const activarParcheTemporal = true;
-  const parcheDelay = 2000; // milisegundos antes de que se regenere
+  const parcheDelay = 1000; // milisegundos antes de que se regenere
 
   let overlayCanvas, overlayCtx;
   const scratchHistory = [];
