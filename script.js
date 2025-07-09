@@ -38,8 +38,7 @@ window.addEventListener("load", () => {
   let yaRascado = false;
   let drawCount = 0;
   let confettiLanzado = false;
-  let scratchGrad = null;
-  const LIMITE_RASCADO = 400;
+
 
   function dibujarCanvas() {
     if (yaRascado) return;
@@ -59,7 +58,6 @@ window.addEventListener("load", () => {
 
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
-    scratchGrad = grad;
 
     // Líneas diagonales sutiles
     ctx.lineWidth = 4;
@@ -115,13 +113,13 @@ window.addEventListener("load", () => {
     ctx.fill();
 
     checkScratchProgress();
-    crearParcheTemporal();
   }
 
   // SOLO UNA función checkScratchProgress
   function checkScratchProgress() {
     drawCount++;
-    if (drawCount >= LIMITE_RASCADO) {
+    const limiteRascado = 400;
+    if (drawCount >= limiteRascado) {
       canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
       mostrarSliderDescubre();
@@ -130,33 +128,7 @@ window.addEventListener("load", () => {
     }
   }
 
-  function crearParcheTemporal() {
-    if (!scratchGrad) return;
-    if (drawCount < 20 || drawCount > LIMITE_RASCADO - 40) return;
-    if (Math.random() > 0.15) return;
-
-    const radio = Math.max(canvas.width, canvas.height) * 0.05 * (1 + Math.random());
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-
-    ctx.save();
-    ctx.globalCompositeOperation = "source-over";
-    ctx.fillStyle = scratchGrad;
-    ctx.beginPath();
-    ctx.arc(x, y, radio, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.restore();
-
-    const delay = 800 + Math.random() * 1000;
-    setTimeout(() => {
-      ctx.save();
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.beginPath();
-      ctx.arc(x, y, radio, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.restore();
-    }, delay);
-  }
+  
 
   canvas.addEventListener("mousemove", (e) => {
     if (e.buttons === 1) draw(e);
