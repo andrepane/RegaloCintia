@@ -40,7 +40,7 @@ window.addEventListener("load", () => {
   let confettiLanzado = false;
 
   // Opcional: activar regeneración automática de zonas rascadas
-  const activarParcheTemporal = true;
+  const activarParcheTemporal = false;
   const parcheDelay = 3500; // milisegundos antes de que se regenere
 
   let overlayCanvas, overlayCtx;
