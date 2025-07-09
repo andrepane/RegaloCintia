@@ -41,7 +41,7 @@ window.addEventListener("load", () => {
 
   // Opcional: activar regeneración automática de zonas rascadas
   const activarParcheTemporal = true;
-  const parcheDelay = 2000; // milisegundos antes de que se regenere
+  const parcheDelay = 3500; // milisegundos antes de que se regenere
 
   let overlayCanvas, overlayCtx;
   const scratchHistory = [];
@@ -125,7 +125,7 @@ window.addEventListener("load", () => {
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
     const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
 
-    const radio = Math.max(canvas.width, canvas.height) * 0.03;
+    const radio = Math.max(canvas.width, canvas.height) * 0.025;
 
     ctx.beginPath();
     ctx.arc(x, y, radio, 0, 2 * Math.PI);
