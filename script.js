@@ -39,6 +39,43 @@ window.addEventListener("load", () => {
   let drawCount = 0;
   let confettiLanzado = false;
 
+  // Opcional: activar regeneración automática de zonas rascadas
+  const activarParcheTemporal = true;
+  const parcheDelay = 5000; // milisegundos antes de que se regenere
+
+  let overlayCanvas, overlayCtx;
+  const scratchHistory = [];
+
+  function drawOverlay(targetCtx, width, height) {
+    // Fondo dorado degradado con textura
+    const grad = targetCtx.createLinearGradient(0, 0, width, height);
+    grad.addColorStop(0, "#ffe6a7");
+    grad.addColorStop(1, "#bfa76f");
+
+    targetCtx.fillStyle = grad;
+    targetCtx.fillRect(0, 0, width, height);
+
+    // Líneas diagonales sutiles
+    targetCtx.lineWidth = 4;
+    targetCtx.strokeStyle = "rgba(255,255,255,0.15)";
+    for (let i = -height; i < width; i += 20) {
+      targetCtx.beginPath();
+      targetCtx.moveTo(i, 0);
+      targetCtx.lineTo(i + height, height);
+      targetCtx.stroke();
+    }
+
+    // Texto central
+    targetCtx.fillStyle = "#333";
+    targetCtx.font = "bold 36px 'Poppins', sans-serif";
+    targetCtx.textAlign = "center";
+    targetCtx.textBaseline = "middle";
+    targetCtx.shadowColor = "rgba(0,0,0,0.4)";
+    targetCtx.shadowBlur = 6;
+    targetCtx.fillText("¡Rasca aquí!", width / 2, height / 2);
+    targetCtx.shadowBlur = 0;
+  }
+
 
   function dibujarCanvas() {
     if (yaRascado) return;
@@ -49,35 +86,17 @@ window.addEventListener("load", () => {
     canvas.width = width;
     canvas.height = height;
 
+    // Preparar lienzo auxiliar con el dibujo original
+    overlayCanvas = document.createElement("canvas");
+    overlayCanvas.width = width;
+    overlayCanvas.height = height;
+    overlayCtx = overlayCanvas.getContext("2d");
+    drawOverlay(overlayCtx, width, height);
+
     ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(overlayCanvas, 0, 0);
 
-    // Fondo dorado degradado con textura
-    const grad = ctx.createLinearGradient(0, 0, width, height);
-    grad.addColorStop(0, "#ffe6a7");
-    grad.addColorStop(1, "#bfa76f");
-
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, width, height);
-
-    // Líneas diagonales sutiles
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = "rgba(255,255,255,0.15)";
-    for (let i = -height; i < width; i += 20) {
-      ctx.beginPath();
-      ctx.moveTo(i, 0);
-      ctx.lineTo(i + height, height);
-      ctx.stroke();
-    }
-
-    // Texto central
-    ctx.fillStyle = "#333";
-    ctx.font = "bold 36px 'Poppins', sans-serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.shadowColor = "rgba(0,0,0,0.4)";
-    ctx.shadowBlur = 6;
-    ctx.fillText("¡Rasca aquí!", width / 2, height / 2);
-    ctx.shadowBlur = 0;
+    scratchHistory.length = 0;
 
     ctx.globalCompositeOperation = "destination-out";
   }
@@ -112,6 +131,10 @@ window.addEventListener("load", () => {
     ctx.arc(x, y, radio, 0, 2 * Math.PI);
     ctx.fill();
 
+    if (activarParcheTemporal) {
+      scratchHistory.push({ x, y, radio, time: Date.now() });
+    }
+
     checkScratchProgress();
   }
 
@@ -126,6 +149,38 @@ window.addEventListener("load", () => {
       mostrarBotonPdf();
       lanzarConfeti();
     }
+  }
+
+  function aplicarParche(p) {
+    const inicio = performance.now();
+    const duracion = 600;
+    function paso(now) {
+      const t = Math.min(1, (now - inicio) / duracion);
+      ctx.save();
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = t;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radio, 0, 2 * Math.PI);
+      ctx.clip();
+      ctx.drawImage(overlayCanvas, 0, 0);
+      ctx.restore();
+      if (t < 1) requestAnimationFrame(paso);
+      else ctx.globalAlpha = 1;
+    }
+    requestAnimationFrame(paso);
+  }
+
+  function checkParches() {
+    if (!activarParcheTemporal || !overlayCanvas) return;
+    const ahora = Date.now();
+    while (scratchHistory.length && ahora - scratchHistory[0].time > parcheDelay) {
+      const p = scratchHistory.shift();
+      aplicarParche(p);
+    }
+  }
+
+  if (activarParcheTemporal) {
+    setInterval(checkParches, 300);
   }
 
   
