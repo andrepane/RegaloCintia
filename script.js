@@ -34,6 +34,21 @@ window.addEventListener("load", () => {
   const ctx = canvas.getContext("2d");
   const container = canvas.parentElement;
   const pdfBtn = document.getElementById("pdf-vale");
+  const scratchMsg = document.getElementById("scratch-msg");
+
+  function showScratchMsg(msg) {
+    if (!scratchMsg) return;
+    scratchMsg.textContent = msg;
+    scratchMsg.style.opacity = "1";
+    clearTimeout(scratchMsg._t);
+    scratchMsg._t = setTimeout(() => (scratchMsg.style.opacity = "0"), 1200);
+  }
+
+  function hideScratchMsg() {
+    if (!scratchMsg) return;
+    scratchMsg.textContent = "";
+    scratchMsg.style.opacity = "0";
+  }
 
   let yaRascado = false;
   let drawCount = 0;
@@ -142,12 +157,18 @@ window.addEventListener("load", () => {
   function checkScratchProgress() {
     drawCount++;
     const limiteRascado = 900;
-    if (drawCount >= limiteRascado) {
+    const progreso = drawCount / limiteRascado;
+    if (progreso >= 1) {
+      hideScratchMsg();
       canvas.classList.add("fade-out");
       canvas.style.pointerEvents = "none";
       mostrarSliderDescubre();
       mostrarBotonPdf();
       lanzarConfeti();
+    } else if (progreso >= 0.75) {
+      showScratchMsg("Casi lo tienes…");
+    } else if (progreso >= 0.25) {
+      showScratchMsg("¡Más fuerte!");
     }
   }
 
